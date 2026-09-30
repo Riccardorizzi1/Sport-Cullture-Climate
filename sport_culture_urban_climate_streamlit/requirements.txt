@@ -7,5 +7,5 @@ shapely
 pyproj
 pyogrio
 fiona
-setuptools<82
+setuptools<81
 keplergl
