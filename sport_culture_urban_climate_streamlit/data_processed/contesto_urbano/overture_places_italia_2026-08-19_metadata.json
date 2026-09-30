@@ -1,0 +1,12 @@
+{
+  "source": "Overture Maps Places",
+  "release": "2026-08-19.0",
+  "territory": "Italia",
+  "boundary_source": "ISTAT Limiti amministrativi 2023",
+  "boundary_file": "Limiti01012023.zip",
+  "crs": "EPSG:4326",
+  "n_places": 2352923,
+  "taxonomy_complete_pct": 96.84,
+  "basic_category_complete_pct": 97.47,
+  "output": "overture_places_italia_2026-08-19.parquet"
+}

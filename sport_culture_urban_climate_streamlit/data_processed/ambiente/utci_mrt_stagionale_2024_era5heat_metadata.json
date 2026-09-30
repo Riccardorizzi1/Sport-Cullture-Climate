@@ -1,0 +1,219 @@
+{
+  "step": "4F",
+  "status": "validated_variables",
+  "environmental_reference_year": 2024,
+  "source": "Copernicus Climate Change Service / ECMWF ERA5-HEAT",
+  "dataset": "derived-utci-historical",
+  "version": "1_1",
+  "product_type": "consolidated_dataset",
+  "source_temporal_resolution": "hourly",
+  "source_spatial_resolution": "0.25 x 0.25 degree",
+  "projection": "regular latitude-longitude",
+  "output_crs": "EPSG:4326",
+  "variables": {
+    "utci": {
+      "official_variable": "universal_thermal_climate_index",
+      "source_unit": "K",
+      "output_unit": "degC",
+      "direct_data": true,
+      "reconstructed_by_project": false,
+      "partial_series_policy": "If a cell has at least one valid UTCI hour but fewer than all expected seasonal hours, the entire seasonal cell is stored as NoData.",
+      "partial_series_averaged": false,
+      "partial_series_interpolated": false,
+      "statistics": {
+        "winter": {
+          "expected_hours_per_complete_cell": 2184,
+          "n_complete_cells": 523,
+          "n_partial_cells": 10,
+          "n_missing_cells": 0,
+          "partial_hours_min": 2163,
+          "partial_hours_max": 2182,
+          "partial_hours_mean": 2174.9,
+          "partial_cell_policy": "seasonal_nodata",
+          "min_degC_complete_cells": -10.568589210510254,
+          "mean_degC_complete_cells": 3.2679216861724854,
+          "max_degC_complete_cells": 9.303192138671875
+        },
+        "spring": {
+          "expected_hours_per_complete_cell": 2208,
+          "n_complete_cells": 533,
+          "n_partial_cells": 0,
+          "n_missing_cells": 0,
+          "partial_hours_min": null,
+          "partial_hours_max": null,
+          "partial_hours_mean": null,
+          "partial_cell_policy": "seasonal_nodata",
+          "min_degC_complete_cells": 1.3168370723724365,
+          "mean_degC_complete_cells": 11.846769332885742,
+          "max_degC_complete_cells": 16.015119552612305
+        },
+        "summer": {
+          "expected_hours_per_complete_cell": 2208,
+          "n_complete_cells": 533,
+          "n_partial_cells": 0,
+          "n_missing_cells": 0,
+          "partial_hours_min": null,
+          "partial_hours_max": null,
+          "partial_hours_mean": null,
+          "partial_cell_policy": "seasonal_nodata",
+          "min_degC_complete_cells": 12.19139575958252,
+          "mean_degC_complete_cells": 24.84075927734375,
+          "max_degC_complete_cells": 29.843935012817383
+        },
+        "autumn": {
+          "expected_hours_per_complete_cell": 2184,
+          "n_complete_cells": 532,
+          "n_partial_cells": 1,
+          "n_missing_cells": 0,
+          "partial_hours_min": 2181,
+          "partial_hours_max": 2181,
+          "partial_hours_mean": 2181.0,
+          "partial_cell_policy": "seasonal_nodata",
+          "min_degC_complete_cells": 0.7968384027481079,
+          "mean_degC_complete_cells": 13.828349113464355,
+          "max_degC_complete_cells": 20.34990119934082
+        }
+      }
+    },
+    "mrt": {
+      "official_variable": "mean_radiant_temperature",
+      "source_unit": "K",
+      "output_unit": "degC",
+      "direct_data": true,
+      "reconstructed_by_project": false,
+      "partial_series_policy": "Partial MRT seasonal series are not accepted automatically and trigger an error.",
+      "statistics": {
+        "winter": {
+          "expected_hours_per_complete_cell": 2184,
+          "n_complete_cells": 533,
+          "n_partial_cells": 0,
+          "n_missing_cells": 0,
+          "partial_hours_min": null,
+          "partial_hours_max": null,
+          "partial_hours_mean": null,
+          "partial_cell_policy": "not_accepted",
+          "min_degC_complete_cells": -5.3806843757629395,
+          "mean_degC_complete_cells": 7.752960681915283,
+          "max_degC_complete_cells": 18.05965232849121
+        },
+        "spring": {
+          "expected_hours_per_complete_cell": 2208,
+          "n_complete_cells": 533,
+          "n_partial_cells": 0,
+          "n_missing_cells": 0,
+          "partial_hours_min": null,
+          "partial_hours_max": null,
+          "partial_hours_mean": null,
+          "partial_cell_policy": "not_accepted",
+          "min_degC_complete_cells": 10.813092231750488,
+          "mean_degC_complete_cells": 18.958951950073242,
+          "max_degC_complete_cells": 23.659202575683594
+        },
+        "summer": {
+          "expected_hours_per_complete_cell": 2208,
+          "n_complete_cells": 533,
+          "n_partial_cells": 0,
+          "n_missing_cells": 0,
+          "partial_hours_min": null,
+          "partial_hours_max": null,
+          "partial_hours_mean": null,
+          "partial_cell_policy": "not_accepted",
+          "min_degC_complete_cells": 18.49775505065918,
+          "mean_degC_complete_cells": 30.99393081665039,
+          "max_degC_complete_cells": 36.22019577026367
+        },
+        "autumn": {
+          "expected_hours_per_complete_cell": 2184,
+          "n_complete_cells": 533,
+          "n_partial_cells": 0,
+          "n_missing_cells": 0,
+          "partial_hours_min": null,
+          "partial_hours_max": null,
+          "partial_hours_mean": null,
+          "partial_cell_policy": "not_accepted",
+          "min_degC_complete_cells": 5.279666900634766,
+          "mean_degC_complete_cells": 17.918724060058594,
+          "max_degC_complete_cells": 26.709016799926758
+        }
+      }
+    }
+  },
+  "temporal_aggregation": "Arithmetic seasonal mean computed only for cells containing all expected hourly values of that season.",
+  "season_definition": {
+    "winter": [
+      "2024-01",
+      "2024-02",
+      "2024-12"
+    ],
+    "spring": [
+      "2024-03",
+      "2024-04",
+      "2024-05"
+    ],
+    "summer": [
+      "2024-06",
+      "2024-07",
+      "2024-08"
+    ],
+    "autumn": [
+      "2024-09",
+      "2024-10",
+      "2024-11"
+    ]
+  },
+  "expected_hours_by_season": {
+    "winter": 2184,
+    "spring": 2208,
+    "summer": 2208,
+    "autumn": 2184
+  },
+  "n_italy_grid_cells": 533,
+  "hourly_range_degC": {
+    "utci": {
+      "min": -38.8753662109375,
+      "max": 45.874969482421875
+    },
+    "mrt": {
+      "min": -46.99775695800781,
+      "max": 68.98904418945312
+    }
+  },
+  "source_dtypes": {
+    "utci": [
+      "float32"
+    ],
+    "mrt": [
+      "float32"
+    ]
+  },
+  "source_scales": {
+    "utci": [
+      1.0
+    ],
+    "mrt": [
+      1.0
+    ]
+  },
+  "source_offsets": {
+    "utci": [
+      0.0
+    ],
+    "mrt": [
+      0.0
+    ]
+  },
+  "territorial_mask": "ISTAT administrative boundaries 2023",
+  "territorial_selection_rule": "ERA5-HEAT grid-cell centre inside Italian ISTAT territory.",
+  "heat_stress_classes_created": false,
+  "thermal_comfort_score_created": false,
+  "reprojection_applied": false,
+  "resampling_applied": false,
+  "interpolation_applied": false,
+  "normalization_applied": false,
+  "weights_applied": false,
+  "common_project_grid_applied": false,
+  "important_limitation": "ERA5-HEAT has a 0.25-degree grid and represents background outdoor thermal conditions. It does not resolve building-scale shading, street-canyon geometry or local microclimatic variability.",
+  "raw_directory": "C:\\Users\\ricca\\Sport & Culture Urban Climate\\data_raw\\era5_heat_2024",
+  "utci_output": "utci_media_stagionale_2024_era5heat_0p25deg.tif",
+  "mrt_output": "mrt_media_stagionale_2024_era5heat_0p25deg.tif"
+}

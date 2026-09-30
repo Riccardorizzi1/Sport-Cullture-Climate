@@ -1,0 +1,7 @@
+{
+  "step": "OUT.4B3",
+  "block": "Offerta e domanda",
+  "formula": "1/2 disponibilità locale + 1/2 diversità",
+  "diversity_rule": "Se non esistono strutture, diversità = 0. Se esistono strutture ma HHI è mancante, la componente e lo score restano NaN.",
+  "output": "score_offerta_domanda_500m.parquet"
+}

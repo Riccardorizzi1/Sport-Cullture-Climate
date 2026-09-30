@@ -1,0 +1,104 @@
+{
+  "step": "4B",
+  "checklist_variable": "Temperatura media stagionale",
+  "status": "validated_variable",
+  "environmental_reference_year": 2024,
+  "reference_year_reason": "Coerenza temporale con i principali layer Copernicus 2024 del contesto urbano.",
+  "source": "Copernicus Climate Change Service / ECMWF ERA5-Land",
+  "dataset": "reanalysis-era5-land-monthly-means",
+  "product_type": "monthly_averaged_reanalysis",
+  "variable": "2m_temperature",
+  "source_file_container": "NetCDF4/HDF5",
+  "reader": "Rasterio/GDAL",
+  "source_grid_definition": "Regular latitude-longitude grid 0.1 x 0.1 degree.",
+  "native_era5_land_resolution": "approximately 9 km",
+  "cds_grid_resolution_degrees": [
+    0.1,
+    0.1
+  ],
+  "source_netcdf_crs_explicit": false,
+  "output_crs": "EPSG:4326",
+  "crs_handling": "EPSG:4326 assigned for GIS representation after validation of the official regular latitude-longitude ERA5-Land CDS grid; source NetCDF did not expose an explicit CRS to GDAL.",
+  "reprojection_applied": false,
+  "resampling_applied": false,
+  "interpolation_applied": false,
+  "requested_bbox_n_w_s_e": [
+    48.0,
+    6.0,
+    35.0,
+    19.0
+  ],
+  "source_bounds": [
+    5.95,
+    34.949999999999996,
+    19.05,
+    48.05
+  ],
+  "source_temperature_unit": "Kelvin",
+  "unit_detection": "numeric range fallback",
+  "output_unit": "degC",
+  "temporal_band_mapping": "GDAL band metadata",
+  "season_definition": {
+    "winter": [
+      "2024-01",
+      "2024-02",
+      "2024-12"
+    ],
+    "spring": [
+      "2024-03",
+      "2024-04",
+      "2024-05"
+    ],
+    "summer": [
+      "2024-06",
+      "2024-07",
+      "2024-08"
+    ],
+    "autumn": [
+      "2024-09",
+      "2024-10",
+      "2024-11"
+    ]
+  },
+  "seasonal_aggregation": "Weighted mean of monthly means using the number of calendar days.",
+  "leap_year_handling": "February 2024 = 29 days",
+  "territorial_mask": "ISTAT administrative boundaries 2023",
+  "territorial_selection_rule": "ERA5-Land grid-cell centre inside Italian ISTAT territory.",
+  "n_italy_grid_cells": 3322,
+  "season_statistics": {
+    "winter": {
+      "n_valid_cells": 3235,
+      "n_missing_cells": 87,
+      "min_degC": -9.702054977416992,
+      "mean_degC": 5.8765788078308105,
+      "max_degC": 14.049190521240234
+    },
+    "spring": {
+      "n_valid_cells": 3235,
+      "n_missing_cells": 87,
+      "min_degC": -2.9755873680114746,
+      "mean_degC": 12.152030944824219,
+      "max_degC": 17.590097427368164
+    },
+    "summer": {
+      "n_valid_cells": 3235,
+      "n_missing_cells": 87,
+      "min_degC": 5.604185581207275,
+      "mean_degC": 23.07200050354004,
+      "max_degC": 29.496082305908203
+    },
+    "autumn": {
+      "n_valid_cells": 3235,
+      "n_missing_cells": 87,
+      "min_degC": -1.3889833688735962,
+      "mean_degC": 14.09279727935791,
+      "max_degC": 21.223697662353516
+    }
+  },
+  "normalization_applied": false,
+  "weights_applied": false,
+  "score_created": false,
+  "common_project_grid_applied": false,
+  "raw_file": "era5_land_t2m_monthly_2024_italy.nc",
+  "output": "temperatura_media_stagionale_2024_era5land_0p1deg.tif"
+}

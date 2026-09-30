@@ -1,0 +1,18 @@
+{
+  "step": "ENV.4B",
+  "source": "ERA5-Land 2024",
+  "native_resolution": "0.1 degree",
+  "target_grid": "500 m",
+  "variables": [
+    "Velocità vento 10 m stagionale",
+    "Temperatura media stagionale",
+    "Umidità relativa media stagionale"
+  ],
+  "method": "Assegnazione alla cella 500 m del valore ERA5-Land della cella 0.1° contenente longitudine/latitudine.",
+  "interpolation": false,
+  "resampling": false,
+  "downscaling": false,
+  "normalization": false,
+  "score_created": false,
+  "output": "clima_era5land_2024_500m.parquet"
+}

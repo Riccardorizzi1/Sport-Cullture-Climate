@@ -1,0 +1,26 @@
+{
+  "step": "3G.1",
+  "description": "Base urbano-funzionale della centralita",
+  "territory": "Italia",
+  "degurba_source": "Eurostat/GISCO DEGURBA Level 2 GRID 2021",
+  "degurba_code": 130,
+  "degurba_label": "Urban Centre",
+  "degurba_resolution": "1 km",
+  "italy_boundary": "ISTAT Limiti amministrativi 2023",
+  "italy_cell_selection_rule": "Centroide della cella DEGURBA interno al confine ISTAT Italia",
+  "places_source": "Overture Maps Places",
+  "places_release": "2026-08-19.0",
+  "crs": "EPSG:3035",
+  "n_urban_centre_cells_europe": 33649,
+  "n_urban_centre_cells_italy": 4128,
+  "n_cells_with_places": 4120,
+  "n_places_in_urban_centres": 819210,
+  "variables": {
+    "n_places": "Numero di Overture Places nella cella",
+    "n_categories_l0": "Numero di categorie L0 Overture non nulle nella cella"
+  },
+  "score_created": false,
+  "normalization_applied": false,
+  "weights_applied": false,
+  "output": "centralita_urbano_funzionale_2021_2026.parquet"
+}

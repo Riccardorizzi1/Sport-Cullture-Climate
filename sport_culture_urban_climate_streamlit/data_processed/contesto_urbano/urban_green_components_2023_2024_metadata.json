@@ -1,0 +1,77 @@
+{
+  "step": "3K",
+  "checklist_variable": "Presenza di verde urbano",
+  "operational_definition": "Variabile rappresentata da due componenti elementari separate: copertura arborea percentuale e tipologia di copertura vegetale.",
+  "components": {
+    "tree_cover_pct": {
+      "source": "Copernicus Tree Cover Density 2024",
+      "file": "tree_cover_density_2024_100m_italia.vrt",
+      "year": 2024,
+      "resolution": "100 m",
+      "unit": "%",
+      "range": [
+        0,
+        100
+      ],
+      "meaning": "Percentuale di copertura arborea della cella"
+    },
+    "clcplus_land_cover_class": {
+      "source": "Copernicus CLCplus Backbone 2023",
+      "file": "clcplus_backbone_2023_10m_italia.vrt",
+      "year": 2023,
+      "resolution": "10 m",
+      "unit": "official categorical class",
+      "meaning": "Tipologia ufficiale di copertura del suolo utilizzata per distinguere le diverse componenti vegetate",
+      "unambiguous_vegetation_classes": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "mixed_sparse_class": 9
+    }
+  },
+  "clcplus_official_classes": {
+    "1": "Sealed",
+    "2": "Woody needle leaved trees",
+    "3": "Woody broadleaved deciduous trees",
+    "4": "Woody broadleaved evergreen trees",
+    "5": "Low-growing woody plants",
+    "6": "Permanent herbaceous",
+    "7": "Periodically herbaceous",
+    "8": "Lichens and mosses",
+    "9": "Non and sparsely vegetated",
+    "10": "Water",
+    "253": "Coastal seawater buffer",
+    "254": "Outside area",
+    "255": "No data"
+  },
+  "vegetation_handling": {
+    "classes_2_to_8": "Classi ufficiali inequivocabilmente vegetate; conservate separatamente.",
+    "class_9": "Non and sparsely vegetated; mantenuta distinta e non forzata in una classificazione verde/non verde.",
+    "binary_reclassification_created": false
+  },
+  "temporal_consistency": {
+    "tree_cover_year": 2024,
+    "clcplus_year": 2023,
+    "note": "Differenza temporale di un anno mantenuta esplicitamente nei metadata."
+  },
+  "tree_cover_validation": {
+    "valid_cells": 63208405,
+    "outside_cells": 101791595,
+    "unexpected_values": 0,
+    "min": 0,
+    "max": 100,
+    "mean": 32.06826856333426
+  },
+  "new_raster_created": false,
+  "reason_no_duplicate": "Le due componenti sono già disponibili nei raster sorgente validati; duplicarle non aggiungerebbe informazione.",
+  "common_grid_applied": false,
+  "normalization_applied": false,
+  "score_created": false,
+  "weights_applied": false,
+  "status": "validated_elementary_components"
+}

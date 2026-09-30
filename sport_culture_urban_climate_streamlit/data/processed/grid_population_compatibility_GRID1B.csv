@@ -1,0 +1,5 @@
+risoluzione_m,celle_nazionali,celle_figlie_per_cella_1km,popolazione_2023_diretta,operazione_richiesta,stato_con_dato_attuale
+100,30700800,100,False,1 cella 1 km → 100 celle da 100 m,RICHIEDE SORGENTE PIÙ DETTAGLIATA O METODO APPROVATO
+250,4912128,16,False,1 cella 1 km → 16 celle da 250 m,RICHIEDE SORGENTE PIÙ DETTAGLIATA O METODO APPROVATO
+500,1228032,4,False,1 cella 1 km → 4 celle da 500 m,RICHIEDE SORGENTE PIÙ DETTAGLIATA O METODO APPROVATO
+1000,307008,1,True,nessuna disaggregazione,SUPPORTATA DIRETTAMENTE

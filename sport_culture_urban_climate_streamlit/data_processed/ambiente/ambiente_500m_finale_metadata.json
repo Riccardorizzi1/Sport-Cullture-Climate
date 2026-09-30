@@ -1,0 +1,30 @@
+{
+  "chapter": "5 - Variabili ambientali e di comfort",
+  "status": "completed",
+  "target_grid": "500 m",
+  "n_cells": 1228032,
+  "n_variables": 39,
+  "included_variables": [
+    "Esposizione solare",
+    "Ombreggiamento",
+    "Sky View Factor",
+    "Radiazione solare",
+    "Ore di sole diretto",
+    "Velocità del vento",
+    "Stress termico UTCI",
+    "Comfort termico",
+    "Temperatura media stagionale",
+    "Umidità relativa"
+  ],
+  "excluded_by_project_decision": [
+    "Comfort pedonale"
+  ],
+  "merge_method": "Merge one-to-one tramite cell_id.",
+  "geometry_note": "La geometria non viene duplicata in questo file. È mantenuta nel file territoriale canonico e collegabile tramite cell_id.",
+  "new_indicators_created": false,
+  "normalization_applied": false,
+  "weights_applied": false,
+  "score_created": false,
+  "output": "griglia_italia_500m_ambiente_finale.parquet",
+  "audit": "audit_finale_ambiente_500m.csv"
+}

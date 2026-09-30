@@ -1,0 +1,12 @@
+{
+  "step": "ENV.3B",
+  "variable": "Radiazione solare",
+  "source": "CAMS 2024",
+  "target_grid": "500 m",
+  "method": "Assegnazione alla cella 500 m del valore CAMS contenente le coordinate longitudine/latitudine della cella.",
+  "native_resolution": "~0.1 degree",
+  "interpolation": false,
+  "resampling": false,
+  "downscaling": false,
+  "output": "radiazione_solare_cams_2024_500m.parquet"
+}

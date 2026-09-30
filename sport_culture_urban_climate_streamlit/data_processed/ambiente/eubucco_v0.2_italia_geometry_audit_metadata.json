@@ -1,0 +1,23 @@
+{
+  "step": "4G.5C",
+  "status": "eubucco_geometry_qc_completed",
+  "n_buildings": 25577441,
+  "observed_epsg": [
+    3035
+  ],
+  "n_geometry_null": 0,
+  "n_geometry_empty": 0,
+  "n_geometry_invalid": 0,
+  "n_area_nonpositive": 0,
+  "n_nonpolygon": 0,
+  "geometry_types": {
+    "POLYGON": 25577427,
+    "MULTIPOLYGON": 14
+  },
+  "records_removed": 0,
+  "geometries_repaired": 0,
+  "heights_modified": 0,
+  "qc_warnings": [],
+  "eubucco_declared_final": false,
+  "next_step": "If geometry QC passes, EUBUCCO can be adopted as the national footprint base. Height=0 records remain to be resolved separately."
+}

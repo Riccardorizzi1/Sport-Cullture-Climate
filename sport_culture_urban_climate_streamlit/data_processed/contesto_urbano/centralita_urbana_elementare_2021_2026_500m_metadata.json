@@ -1,0 +1,42 @@
+{
+  "step": "CTX.6E",
+  "checklist_variable": "Centralità urbana",
+  "status": "elementary_components_constructed",
+  "definition": "Centralità urbana rappresentata da due componenti elementari separate: appartenenza a un Urban Centre DEGURBA e intensità delle funzioni Overture.",
+  "component_1": {
+    "variable": "is_urban_centre",
+    "definition": "Indicatore binario pari a 1 se DEGURBA Level 2 = 130 (Urban Centre), 0 per gli altri codici DEGURBA validi.",
+    "source": "Eurostat/GISCO DEGURBA GRID 2021",
+    "source_resolution": "1 km",
+    "transfer_to_500m": "Valore della cella DEGURBA 1 km contenente il centro della cella 500 m. Nessuna interpolazione."
+  },
+  "component_2": {
+    "variable": "functional_intensity",
+    "definition": "Numero di Overture Places funzionalmente classificati presenti nella cella 500 m.",
+    "source": "Overture Maps Places",
+    "release": "2026-08-19.0"
+  },
+  "support_grid": "Griglia nazionale progetto 500 m",
+  "support_resolution": "500 m",
+  "support_grid_final_project_grid": true,
+  "n_cells": 1228032,
+  "n_degurba_valid": 1228032,
+  "n_degurba_missing": 0,
+  "n_urban_centre_cells": 17208,
+  "n_functional_places": 2249964,
+  "n_functional_places_assigned": 2249964,
+  "n_functional_places_unassigned": 0,
+  "n_cells_with_functions": 231196,
+  "n_cells_without_functions": 996836,
+  "urban_cells_with_functions": 15706,
+  "urban_cells_without_functions": 1502,
+  "functional_places_in_urban_centres": 801904,
+  "validation_against_previous_1km": {
+    "n_cells_checked": 301441,
+    "n_mismatch": 0
+  },
+  "normalization_applied": false,
+  "weights_applied": false,
+  "centrality_score_created": false,
+  "output": "centralita_urbana_elementare_2021_2026_500m.parquet"
+}

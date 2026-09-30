@@ -1,0 +1,105 @@
+{
+  "step": "4D",
+  "status": "validated_variable",
+  "method_version": "hourly_definitive",
+  "supersedes": "Previous STEP 4D based on sqrt(monthly_mean_U^2 + monthly_mean_V^2).",
+  "checklist_variable": "Velocità del vento",
+  "variable_definition": "Seasonal mean of hourly 10 m wind-speed magnitudes.",
+  "environmental_reference_year": 2024,
+  "source": "Copernicus Climate Change Service / ECMWF ERA5-Land hourly",
+  "dataset": "reanalysis-era5-land",
+  "input_variables": [
+    "10m_u_component_of_wind",
+    "10m_v_component_of_wind"
+  ],
+  "input_temporal_resolution": "hourly",
+  "input_units": "m s-1",
+  "hourly_derivation": "sqrt(u10_hourly^2 + v10_hourly^2)",
+  "output_unit": "m s-1",
+  "temporal_aggregation": "Arithmetic mean of all valid hourly wind-speed magnitudes within each season.",
+  "time_reference": "UTC",
+  "interpretation": "Meteorological background wind at 10 m. Not pedestrian wind comfort, street-level urban-canyon wind or building-scale exposure.",
+  "season_definition": {
+    "winter": [
+      "2024-01",
+      "2024-02",
+      "2024-12"
+    ],
+    "spring": [
+      "2024-03",
+      "2024-04",
+      "2024-05"
+    ],
+    "summer": [
+      "2024-06",
+      "2024-07",
+      "2024-08"
+    ],
+    "autumn": [
+      "2024-09",
+      "2024-10",
+      "2024-11"
+    ]
+  },
+  "expected_hours_by_season": {
+    "winter": 2184,
+    "spring": 2208,
+    "summer": 2208,
+    "autumn": 2184
+  },
+  "hourly_wind_min_m_s": 0.00010847180965356529,
+  "hourly_wind_max_m_s": 19.060169219970703,
+  "grid": "regular latitude-longitude 0.1 x 0.1 degree",
+  "crs": "EPSG:4326",
+  "reprojection_applied": false,
+  "resampling_applied": false,
+  "interpolation_applied": false,
+  "territorial_mask": "ISTAT administrative boundaries 2023",
+  "territorial_selection_rule": "ERA5-Land grid-cell centre inside Italian ISTAT territory.",
+  "n_italy_grid_cells": 3322,
+  "season_statistics": {
+    "winter": {
+      "expected_hours_per_valid_cell": 2184,
+      "n_valid_cells": 3235,
+      "n_missing_cells": 87,
+      "n_partial_cells": 0,
+      "min_m_s": 0.5079724788665771,
+      "mean_m_s": 1.9688568115234375,
+      "max_m_s": 5.850124835968018
+    },
+    "spring": {
+      "expected_hours_per_valid_cell": 2208,
+      "n_valid_cells": 3235,
+      "n_missing_cells": 87,
+      "n_partial_cells": 0,
+      "min_m_s": 0.6550357937812805,
+      "mean_m_s": 1.9437379837036133,
+      "max_m_s": 5.3889479637146
+    },
+    "summer": {
+      "expected_hours_per_valid_cell": 2208,
+      "n_valid_cells": 3235,
+      "n_missing_cells": 87,
+      "n_partial_cells": 0,
+      "min_m_s": 0.595034658908844,
+      "mean_m_s": 1.5813686847686768,
+      "max_m_s": 4.027914047241211
+    },
+    "autumn": {
+      "expected_hours_per_valid_cell": 2184,
+      "n_valid_cells": 3235,
+      "n_missing_cells": 87,
+      "n_partial_cells": 0,
+      "min_m_s": 0.5630703568458557,
+      "mean_m_s": 1.7702388763427734,
+      "max_m_s": 5.133944034576416
+    }
+  },
+  "normalization_applied": false,
+  "weights_applied": false,
+  "score_created": false,
+  "pedestrian_wind_comfort_created": false,
+  "common_project_grid_applied": false,
+  "raw_directory": "C:\\Users\\ricca\\Sport & Culture Urban Climate\\data_raw\\era5_land_2024\\hourly_wind",
+  "output": "velocita_vento_media_stagionale_2024_era5land_10m_0p1deg.tif"
+}

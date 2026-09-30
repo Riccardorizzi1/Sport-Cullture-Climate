@@ -1,0 +1,18 @@
+{
+  "step": "OUT.3B",
+  "variable": "Score di attrattività territoriale",
+  "components": [
+    "disponibilita_locale_totale",
+    "n_complementary_total",
+    "functional_mix"
+  ],
+  "normalization": "Percentile nazionale riscalato 0-1",
+  "functional_mix_empty_rule": "Se n_categories_functional = 0, la componente normalizzata del mix = 0. Il functional_mix originale resta NaN.",
+  "formula": "Media semplice delle tre componenti normalizzate.",
+  "weights": {
+    "disponibilita": 0.3333333333333333,
+    "servizi_complementari": 0.3333333333333333,
+    "mix_funzionale": 0.3333333333333333
+  },
+  "output": "score_attrattivita_territoriale_500m.parquet"
+}

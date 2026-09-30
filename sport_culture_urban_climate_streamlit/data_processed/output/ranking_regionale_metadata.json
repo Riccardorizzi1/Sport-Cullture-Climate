@@ -1,0 +1,10 @@
+{
+  "step": "OUT.7",
+  "output_variable": "Ranking regionale",
+  "source": "valore_normalizzato_cella",
+  "aggregation": "Media del valore normalizzato per cella pesata per popolazione 2023.",
+  "ranking_direction": "1 = valore regionale più alto",
+  "missing_rule": "Le celle senza valore normalizzato non contribuiscono alla media regionale.",
+  "coverage": "Per ogni regione viene conservata la percentuale di popolazione rappresentata da celle con indice valido.",
+  "output": "ranking_regionale.parquet"
+}

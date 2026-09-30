@@ -1,0 +1,31 @@
+{
+  "step": "3I.2",
+  "variable": "Pressione infrastrutturale",
+  "road_classes": [
+    "motorway",
+    "trunk",
+    "primary",
+    "secondary",
+    "tertiary"
+  ],
+  "rail_rule": "Tutti i segmenti subtype=rail",
+  "source": "Overture Maps Transportation",
+  "release": "2026-08-19.0",
+  "territory": "Italia",
+  "boundary_source": "ISTAT Limiti amministrativi 2023",
+  "support_grid": "DEGURBA GRID 2021",
+  "support_resolution": "1 km",
+  "support_grid_final_project_grid": false,
+  "cell_selection_rule": "Centro della cella interno al confine ISTAT Italia",
+  "border_rule": "Celle costiere/confine ritagliate sulla porzione italiana",
+  "variables": {
+    "road_length_m": "Metri di rete stradale strutturante",
+    "rail_length_m": "Metri di rete ferroviaria",
+    "road_density_m_km2": "Metri strada per km2",
+    "rail_density_m_km2": "Metri ferrovia per km2"
+  },
+  "normalization_applied": false,
+  "weights_applied": false,
+  "score_created": false,
+  "output": "pressione_infrastrutturale_1km.parquet"
+}

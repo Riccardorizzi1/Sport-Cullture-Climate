@@ -1,0 +1,42 @@
+{
+  "step": "3O",
+  "checklist_variable": "Centralità urbana",
+  "status": "elementary_components_constructed",
+  "definition": "Centralità urbana rappresentata da due componenti elementari separate: appartenenza a un Urban Centre DEGURBA e intensità delle funzioni Overture presenti nella cella.",
+  "component_1": {
+    "variable": "is_urban_centre",
+    "definition": "Indicatore binario pari a 1 se DEGURBA Level 2 = 130 (Urban Centre), 0 altrimenti.",
+    "source": "Eurostat/GISCO DEGURBA GRID 2021",
+    "year": 2021
+  },
+  "component_2": {
+    "variable": "functional_intensity",
+    "definition": "Numero di Overture Places funzionalmente classificati presenti nella cella.",
+    "source": "Overture Maps Places",
+    "release": "2026-08-19.0",
+    "excluded": [
+      "geographic_entities",
+      "null category_l0",
+      "UNCLASSIFIED"
+    ]
+  },
+  "territory": "Italia",
+  "support_grid": "Stesse celle DEGURBA GRID 2021 utilizzate negli STEP 3L-3N",
+  "support_resolution": "1 km",
+  "support_grid_final_project_grid": false,
+  "n_cells": 301441,
+  "n_urban_centre_cells": 4128,
+  "n_functional_places": 2249964,
+  "n_functional_places_assigned": 2206734,
+  "assigned_pct": 98.07863592484146,
+  "n_cells_with_functions": 117451,
+  "n_cells_without_functions": 183990,
+  "urban_cells_with_functions": 4116,
+  "urban_cells_without_functions": 12,
+  "functional_places_in_urban_centres": 790752,
+  "normalization_applied": false,
+  "weights_applied": false,
+  "centrality_score_created": false,
+  "n_categories_functional_duplicated": false,
+  "output": "centralita_urbana_elementare_2021_2026_1km.parquet"
+}

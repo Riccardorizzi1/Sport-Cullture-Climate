@@ -1,0 +1,17 @@
+{
+  "step": "ENV.5B",
+  "source": "ERA5-HEAT 2024",
+  "native_resolution": "0.25 degree",
+  "target_grid": "500 m",
+  "variables": [
+    "UTCI medio stagionale",
+    "Percentuale di ore di comfort termico stagionale"
+  ],
+  "method": "Assegnazione alla cella 500 m del valore della cella ERA5-HEAT 0.25° contenente longitudine/latitudine.",
+  "interpolation": false,
+  "resampling": false,
+  "downscaling": false,
+  "normalization": false,
+  "score_created": false,
+  "output": "stress_comfort_termico_era5heat_2024_500m.parquet"
+}

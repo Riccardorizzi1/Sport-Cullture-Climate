@@ -1,0 +1,22 @@
+{
+  "step": "OUT.4A",
+  "name": "Indice finale A - 3 score",
+  "components": [
+    "score_accessibilita",
+    "score_comfort",
+    "score_attrattivita_territoriale"
+  ],
+  "weights": {
+    "score_accessibilita": 0.3333333333333333,
+    "score_comfort": 0.3333333333333333,
+    "score_attrattivita_territoriale": 0.3333333333333333
+  },
+  "formula": "Media aritmetica semplice dei tre score.",
+  "missing_rule": "Indice calcolato solo se tutti e tre gli score sono disponibili.",
+  "range": [
+    0.0,
+    1.0
+  ],
+  "status": "indice_sintetico_3score",
+  "output": "indice_finale_3score_500m.parquet"
+}

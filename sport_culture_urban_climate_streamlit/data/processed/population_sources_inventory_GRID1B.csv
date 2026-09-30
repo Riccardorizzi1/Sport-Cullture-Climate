@@ -1,0 +1,7 @@
+file,nome,tipo,size_mb,righe_o_pixel,colonne,geometry_hint,crs,resolution_x,resolution_y,note
+C:\Users\ricca\Sport & Culture Urban Climate\data\processed\griglia_italia_1km_popolazione.parquet,griglia_italia_1km_popolazione.parquet,.parquet,11.17753791809082,307008,"cell_id, geometry, popolazione_2023",geospatial parquet,,,,
+C:\Users\ricca\Sport & Culture Urban Climate\data\processed\popolazione_comuni_2023.parquet,popolazione_comuni_2023.parquet,.parquet,0.1662759780883789,7901,"codice_comune_istat, comune, codice_provincia_istat, provincia, codice_regione_istat, regione, popolazione_2023",,,,,
+C:\Users\ricca\Sport & Culture Urban Climate\data\processed\popolazione_province_2023.parquet,popolazione_province_2023.parquet,.parquet,0.0060100555419921875,107,"codice_provincia_istat, provincia, codice_regione_istat, regione, popolazione_2023",,,,,
+C:\Users\ricca\Sport & Culture Urban Climate\data\processed\popolazione_regioni_2023.parquet,popolazione_regioni_2023.parquet,.parquet,0.0027494430541992188,20,"codice_regione_istat, regione, popolazione_2023",,,,,
+C:\Users\ricca\Sport & Culture Urban Climate\data\processed\popolazione_sezioni_2023.parquet,popolazione_sezioni_2023.parquet,.parquet,2.7705907821655273,493942,"sezione_id, popolazione_2023",,,,,
+C:\Users\ricca\Sport & Culture Urban Climate\data\processed\popolazione_sezioni_2023_spaziale.parquet,popolazione_sezioni_2023_spaziale.parquet,.parquet,514.9823122024536,493942,"sezione_id, popolazione_2023, codice_comune_istat, codice_provincia_istat, codice_regione_istat, geometry",geospatial parquet,,,,

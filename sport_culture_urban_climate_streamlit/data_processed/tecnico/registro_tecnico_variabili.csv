@@ -1,0 +1,20 @@
+﻿variabile_prodotto,anno_riferimento,fonte_primaria,fonte_secondaria,data_aggiornamento,formato_dati,stato_pulizia,stato_validazione,stato_merge,peso_indicatore,flag_inclusione_modello,metadata_file
+Morfologia ambientale,2024,,,,PARQUET,completato,validato,integrato_capitolo_5,,no_diretto,data_processed\ambiente\ambiente_morfologico_2024_500m_metadata.json
+Clima ERA5-Land,2024,ERA5-Land 2024,,,PARQUET,completato,validato,integrato_capitolo_5,,no_diretto,data_processed\ambiente\clima_era5land_2024_500m_metadata.json
+Radiazione solare,2024,CAMS 2024,,,PARQUET,completato,validato,integrato_capitolo_5,,no_diretto,data_processed\ambiente\radiazione_solare_cams_2024_500m_metadata.json
+Stress e comfort termico,2024,ERA5-HEAT 2024,,,PARQUET,completato,validato,integrato_capitolo_5,,no_diretto,data_processed\ambiente\stress_comfort_termico_era5heat_2024_500m_metadata.json
+Centralità urbana,2021; 2026,,,,PARQUET,completato,validato,integrato_capitolo_4,,no_diretto,data_processed\contesto_urbano\centralita_urbana_elementare_2021_2026_500m_metadata.json
+Continuità del tessuto urbano,2024,Copernicus Share of Built-Up 2024,,,PARQUET,completato,validato,integrato_capitolo_4,,no_diretto,data_processed\contesto_urbano\continuita_tessuto_urbano_2024_500m_metadata.json
+Densità edilizia,2024,Copernicus HRL Share of Built-Up 2024,,,PARQUET,completato,validato,integrato_capitolo_4,,no_diretto,data_processed\contesto_urbano\densita_edilizia_share_built_up_2024_500m_metadata.json
+Mix funzionale,2026,Overture Maps Places,,2026-08-19.0,PARQUET,completato,validato,integrato_capitolo_4,,no_diretto,data_processed\contesto_urbano\mix_funzionale_overture_2026_500m_metadata.json
+Presenza di servizi complementari,2026,Overture Maps Places,,2026-08-19.0,PARQUET,completato,validato,integrato_capitolo_4,,no_diretto,data_processed\contesto_urbano\presenza_servizi_complementari_2026_500m_metadata.json
+Uso del suolo circostante,2023,Copernicus CLCplus Backbone 2023,,,PARQUET,completato,validato,integrato_capitolo_4,,no_diretto,data_processed\contesto_urbano\uso_suolo_circostante_clcplus_2023_500m_metadata.json
+Verde urbano,2024,Copernicus HRL Tree Cover Density 2024,,,PARQUET,completato,validato,integrato_capitolo_4,,no_diretto,data_processed\contesto_urbano\verde_urbano_tree_cover_density_2024_500m_metadata.json
+Score di accessibilità,,,,,PARQUET,completato,validato,output_autonomo,0.3333333333333333,si_indice_finale,data_processed\output\score_accessibilita_500m_metadata.json
+Score di attrattività territoriale,,,,,PARQUET,completato,validato,output_autonomo,0.3333333333333333,si_indice_finale,data_processed\output\score_attrattivita_territoriale_500m_metadata.json
+Score di comfort,,,,,PARQUET,completato,validato,output_autonomo,0.3333333333333333,si_indice_finale,data_processed\output\score_comfort_500m_metadata.json
+Territorio,,,,,PARQUET,completato,validato,file_finale_capitolo,,no_diretto,
+Strutture,,,,,PARQUET,completato,validato,file_finale_capitolo,,no_diretto,
+Accessibilità,,,,,PARQUET,completato,validato,file_finale_capitolo,,no_diretto,
+Offerta e domanda,,,,,PARQUET,completato,validato,file_finale_capitolo,,no_diretto,
+Indice finale 3 score,,Derivato dai tre score finali,,,PARQUET,completato,validato,output_finale,,output_finale,data_processed/output/indice_finale_3score_500m_metadata.json

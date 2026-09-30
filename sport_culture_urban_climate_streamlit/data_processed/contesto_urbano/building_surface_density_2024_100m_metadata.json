@@ -1,0 +1,39 @@
+{
+  "step": "3J",
+  "checklist_variable": "Densita edilizia",
+  "operational_variable": "Densita edilizia superficiale",
+  "variable_name": "building_surface_density_pct",
+  "definition": "Quota percentuale della superficie della cella classificata come built-up",
+  "formula": "building_surface_density_pct = Share of Built-Up",
+  "unit": "%",
+  "range": [
+    0,
+    100
+  ],
+  "interpretation": {
+    "0": "assenza di superficie built-up",
+    "100": "superficie della cella completamente built-up"
+  },
+  "source": "Copernicus Share of Built-Up 2024",
+  "source_file": "share_of_built_up_2024_100m_italia.vrt",
+  "year": 2024,
+  "resolution": "100 m",
+  "crs": "EPSG:3035",
+  "outside_area_value": 255,
+  "n_valid_cells": 66208405,
+  "n_outside_cells": 98791595,
+  "min": 0,
+  "max": 100,
+  "mean": 2.3456039909132382,
+  "limitations": [
+    "Non misura altezza degli edifici",
+    "Non misura volume costruito",
+    "Non misura Floor Area Ratio (FAR)"
+  ],
+  "new_raster_created": false,
+  "reason_no_duplicate": "Il raster Share of Built-Up esistente coincide direttamente con la variabile elementare; non viene duplicato.",
+  "normalization_applied": false,
+  "score_created": false,
+  "weights_applied": false,
+  "status": "validated_variable"
+}

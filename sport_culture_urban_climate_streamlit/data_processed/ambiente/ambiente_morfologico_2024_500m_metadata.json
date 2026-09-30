@@ -1,0 +1,27 @@
+{
+  "step": "ENV.2C",
+  "source_resolution": "100 m",
+  "target_grid": "500 m",
+  "method": "Media dei pixel/recettori 100 m validi contenuti nella cella 500 m.",
+  "variables": [
+    "svf_mean",
+    "shaded_daylight_fraction_annual",
+    "shaded_daylight_fraction_winter",
+    "shaded_daylight_fraction_spring",
+    "shaded_daylight_fraction_summer",
+    "shaded_daylight_fraction_autumn",
+    "direct_sun_hours_annual",
+    "direct_sun_hours_winter",
+    "direct_sun_hours_spring",
+    "direct_sun_hours_summer",
+    "direct_sun_hours_autumn",
+    "solar_exposure_proxy_annual_kwh_m2"
+  ],
+  "n_tiles": 11962,
+  "valid_receptors": 6408755,
+  "interpolation": false,
+  "resampling": false,
+  "normalization": false,
+  "score_created": false,
+  "output": "ambiente_morfologico_2024_500m.parquet"
+}

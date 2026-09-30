@@ -1,0 +1,10 @@
+{
+  "step": "OUT.8",
+  "output_variable": "Ranking provinciale",
+  "source": "valore_normalizzato_cella",
+  "aggregation": "Media del valore normalizzato per cella pesata per popolazione 2023.",
+  "ranking_direction": "1 = valore provinciale più alto",
+  "missing_rule": "Le celle senza valore normalizzato non contribuiscono alla media provinciale.",
+  "coverage": "Per ogni provincia viene conservata la percentuale di popolazione rappresentata da celle con indice valido.",
+  "output": "ranking_provinciale.parquet"
+}

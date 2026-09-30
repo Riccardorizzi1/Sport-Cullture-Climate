@@ -1,0 +1,26 @@
+{
+  "CULTURA": {
+    "musei_gallerie_collezioni": "Musei, gallerie e collezioni",
+    "biblioteche": "Biblioteche",
+    "teatri_spettacoli": "Teatri e spazi per spettacoli",
+    "cinema": "Cinema",
+    "archivi": "Archivi",
+    "siti_archeologici": "Siti archeologici",
+    "monumenti_complessi": "Monumenti e complessi storico-culturali visitabili",
+    "centri_istituti_culturali": "Centri e istituti culturali",
+    "auditorium_musica": "Auditorium, sale da concerto e spazi musicali",
+    "spazi_espositivi": "Spazi espositivi e centri per mostre"
+  },
+  "SPORT": {
+    "centri_sportivi": "Centri sportivi e impianti polivalenti",
+    "palestre_fitness": "Palestre e fitness",
+    "piscine": "Piscine e impianti acquatici",
+    "stadi_arene": "Stadi, palazzetti e arene sportive",
+    "campi_sportivi": "Campi e campetti sportivi",
+    "atletica_piste": "Atletica e piste sportive",
+    "circuiti_velodromi": "Circuiti e velodromi",
+    "impianti_specializzati": "Impianti sportivi specializzati",
+    "sport_invernali": "Sport invernali",
+    "sport_nautici": "Sport nautici"
+  }
+}

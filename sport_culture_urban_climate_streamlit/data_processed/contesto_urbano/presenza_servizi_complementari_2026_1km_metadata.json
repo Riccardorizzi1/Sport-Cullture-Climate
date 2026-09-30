@@ -1,0 +1,38 @@
+{
+  "step": "3M",
+  "checklist_variable": "Presenza di servizi complementari",
+  "status": "validated_variable",
+  "definition": "Numero di funzioni Overture complementari alla fruizione sportivo-culturale presenti nella cella territoriale.",
+  "source": "Overture Maps Places",
+  "release": "2026-08-19.0",
+  "source_file": "overture_places_italia_2026-08-19.parquet",
+  "territory": "Italia",
+  "support_grid": "Stesse celle DEGURBA GRID 2021 utilizzate nello STEP 3L",
+  "support_resolution": "1 km",
+  "support_grid_final_project_grid": false,
+  "categories": {
+    "food_and_drink": "Supporto alla visita",
+    "shopping": "Supporto alla visita",
+    "lodging": "Supporto alla visita",
+    "travel_and_transportation": "Supporto alla mobilita"
+  },
+  "variables": {
+    "n_food_and_drink": "Numero di Places food_and_drink",
+    "n_shopping": "Numero di Places shopping",
+    "n_lodging": "Numero di Places lodging",
+    "n_travel_and_transportation": "Numero di Places travel_and_transportation",
+    "n_visit_support": "Somma descrittiva di food_and_drink + shopping + lodging",
+    "n_complementary_total": "Somma descrittiva delle quattro componenti"
+  },
+  "n_places_target": 1106052,
+  "n_places_assigned": 1078013,
+  "n_places_outside_support_cells": 28039,
+  "assigned_pct": 97.46494739849483,
+  "n_cells": 301441,
+  "n_cells_with_services": 93657,
+  "n_cells_without_services": 207784,
+  "normalization_applied": false,
+  "weights_applied": false,
+  "score_created": false,
+  "output": "presenza_servizi_complementari_2026_1km.parquet"
+}

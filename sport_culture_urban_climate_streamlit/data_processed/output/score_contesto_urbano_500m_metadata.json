@@ -1,0 +1,22 @@
+{
+  "step": "OUT.4C",
+  "block": "Contesto urbano",
+  "components": [
+    "norm_servizi_complementari",
+    "norm_functional_mix"
+  ],
+  "formula": "Media semplice delle due componenti normalizzate.",
+  "weights": {
+    "servizi_complementari": 0.5,
+    "mix_funzionale": 0.5
+  },
+  "excluded_from_score": [
+    "Uso del suolo circostante",
+    "Densità edilizia",
+    "Verde urbano",
+    "Centralità urbana",
+    "Continuità del tessuto urbano"
+  ],
+  "exclusion_reason": "Variabili mantenute come indicatori descrittivi perché non presentano una direzione univoca alto = migliore fruibilità.",
+  "output": "score_contesto_urbano_500m.parquet"
+}

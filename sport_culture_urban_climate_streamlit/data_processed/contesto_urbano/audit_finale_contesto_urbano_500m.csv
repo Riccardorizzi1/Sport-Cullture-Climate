@@ -1,0 +1,8 @@
+﻿modulo,file,n_rows,n_variables_added,missing_cell_ids,extra_cell_ids
+uso_suolo,uso_suolo_circostante_clcplus_2023_500m.parquet,1228032,28,0,0
+densita_edilizia,densita_edilizia_share_built_up_2024_500m.parquet,1228032,2,0,0
+verde_urbano,verde_urbano_tree_cover_density_2024_500m.parquet,1228032,2,0,0
+servizi_complementari,presenza_servizi_complementari_2026_500m.parquet,1228032,6,0,0
+mix_funzionale,mix_funzionale_overture_2026_500m.parquet,1228032,3,0,0
+centralita_urbana,centralita_urbana_elementare_2021_2026_500m.parquet,1228032,2,0,0
+continuita_tessuto,continuita_tessuto_urbano_2024_500m.parquet,1228032,2,0,0

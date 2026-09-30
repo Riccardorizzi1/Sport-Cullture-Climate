@@ -1,0 +1,53 @@
+{
+  "step": "CTX.5B",
+  "checklist_variable": "Mix funzionale",
+  "status": "validated_variable",
+  "definition": "Diversificazione delle macro-funzioni Overture presenti nella cella, misurata come complemento dell'HHI.",
+  "formula_hhi": "functional_hhi = sum(p_k^2)",
+  "formula_mix": "functional_mix = 1 - functional_hhi",
+  "source": "Overture Maps Places",
+  "release": "2026-08-19.0",
+  "source_file": "overture_places_italia_2026-08-19.parquet",
+  "support_grid": "Griglia nazionale progetto 500 m",
+  "support_resolution": "500 m",
+  "support_grid_final_project_grid": true,
+  "functional_categories": [
+    "arts_and_entertainment",
+    "community_and_government",
+    "cultural_and_historic",
+    "education",
+    "food_and_drink",
+    "health_care",
+    "lifestyle_services",
+    "lodging",
+    "services_and_business",
+    "shopping",
+    "sports_and_recreation",
+    "travel_and_transportation"
+  ],
+  "n_functional_categories": 12,
+  "excluded_categories": {
+    "geographic_entities": "Esclusa perché non rappresenta una funzione territoriale.",
+    "null_or_unclassified": "Esclusi perché la funzione non è determinabile."
+  },
+  "n_functional_places": 2249964,
+  "n_functional_places_assigned": 2249964,
+  "n_functional_places_unassigned": 0,
+  "assigned_pct": 100.0,
+  "n_cells": 1228032,
+  "n_cells_with_functions": 231196,
+  "n_cells_without_functions": 996836,
+  "n_cells_single_category": 106768,
+  "variables": {
+    "n_categories_functional": "Numero di macro-categorie funzionali presenti nella cella.",
+    "functional_hhi": "Indice HHI della composizione funzionale.",
+    "functional_mix": "1 - HHI; valori elevati indicano maggiore diversificazione funzionale."
+  },
+  "empty_cell_rule": "Celle senza Places funzionali: n_categories_functional=0; functional_hhi e functional_mix=NaN.",
+  "theoretical_max_mix_with_all_categories_equal": 0.9166666666666666,
+  "assignment_method": "Assegnazione diretta tramite coordinate EPSG:3035 e griglia regolare 500 m.",
+  "normalization_applied": false,
+  "weights_applied": false,
+  "score_created": false,
+  "output": "mix_funzionale_overture_2026_500m.parquet"
+}

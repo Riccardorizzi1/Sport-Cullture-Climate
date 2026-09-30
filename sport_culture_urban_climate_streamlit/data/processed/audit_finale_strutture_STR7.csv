@@ -1,0 +1,12 @@
+variabile,stato,n_disponibili,pct_disponibili,nota
+ID struttura,disponibile,323844.0,100.0,ID nazionale univoco Master Registry
+Nome struttura,disponibile quando presente nella fonte,90363.0,27.903249712824696,Nessun nome inventato per record senza nome
+Categoria principale sportiva/culturale,disponibile,323844.0,100.0,Campo dominio
+Sottocategoria,disponibile quasi completamente,323455.0,99.87988043625944,Campo categoria; 389 record MiC senza categoria
+Stato di apertura,non disponibile in modo omogeneo,,,Informazioni presenti solo parzialmente nelle fonti
+Capacità o dimensione,disponibile solo sporadicamente,967.0,0.2986005607638246,Campo capacity OSM; copertura insufficiente a livello nazionale
+Anno apertura o costruzione,non disponibile in modo omogeneo,,,Nessun campo nazionale coerente nelle fonti integrate
+Proprietà pubblica/privata/mista,non disponibile in modo omogeneo,,,Operator OSM non equivale alla proprietà
+Geolocalizzazione,disponibile,323844.0,100.0,Tutte le strutture hanno geometria Point valida
+Fonte del dato,disponibile,323844.0,100.0,Campo fonti
+Qualità della geocodifica,disponibile come provenienza della coordinata,323844.0,100.0,originale_fonte oppure recuperata_iccu; nessuna falsa precisione metrica

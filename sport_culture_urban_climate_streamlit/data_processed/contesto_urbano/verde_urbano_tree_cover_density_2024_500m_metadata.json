@@ -1,0 +1,22 @@
+{
+  "step": "CTX.3B",
+  "checklist_variable": "Verde urbano",
+  "operational_indicator": "Tree Cover Density",
+  "source": "Copernicus HRL Tree Cover Density 2024",
+  "source_year": 2024,
+  "source_resolution": "100 m",
+  "support_resolution": "500 m",
+  "aggregation": "Media dei pixel validi 100 m contenuti nella cella 500 m.",
+  "pixels_per_full_cell": 25,
+  "nodata_source": 255,
+  "output_variable": "tree_cover_density_pct",
+  "range": "0-100 %",
+  "n_cells": 1228032,
+  "n_full_cells": 1212819,
+  "n_partial_cells": 11296,
+  "n_missing_cells": 3917,
+  "resampling_applied": false,
+  "normalization_applied": false,
+  "score_created": false,
+  "output": "verde_urbano_tree_cover_density_2024_500m.parquet"
+}

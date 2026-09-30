@@ -1,0 +1,19 @@
+{
+  "step": "OUT.6",
+  "output_variable": "Classificazione per quartili",
+  "source": "valore_normalizzato_cella",
+  "scope": "Nazionale",
+  "thresholds": {
+    "q25": 0.24959708750247955,
+    "q50": 0.499920517206192,
+    "q75": 0.7499507665634155
+  },
+  "classes": {
+    "Q1": "0-25 percentile",
+    "Q2": "25-50 percentile",
+    "Q3": "50-75 percentile",
+    "Q4": "75-100 percentile"
+  },
+  "missing_rule": "Le celle senza indice finale restano non classificate.",
+  "output": "classificazione_quartili_500m.parquet"
+}

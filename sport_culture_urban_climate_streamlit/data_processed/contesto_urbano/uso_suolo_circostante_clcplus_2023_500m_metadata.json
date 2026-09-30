@@ -1,0 +1,22 @@
+{
+  "step": "CTX.1D",
+  "checklist_variable": "Uso del suolo circostante",
+  "status": "validated_variable",
+  "source": "Copernicus CLCplus Backbone 2023",
+  "source_year": 2023,
+  "source_resolution": "10 m",
+  "support_resolution": "500 m",
+  "share_denominator": "Solo classi tematiche 1-11.",
+  "border_rule": "Solo pixel il cui centro ricade nel territorio italiano.",
+  "optimization": "Le celle 500 m figlie di una cella 1 km già validata con 10.000 pixel italiani sono trattate come interamente interne; controllo puntuale 10 m solo sulle restanti celle.",
+  "n_cells": 1228032,
+  "n_full_cells": 1195115,
+  "n_border_cells": 22101,
+  "n_zero_italy": 10816,
+  "max_pixel_error": 0,
+  "max_share_error": 1.52587890625e-05,
+  "resampling_applied": false,
+  "normalization_applied": false,
+  "score_created": false,
+  "output": "uso_suolo_circostante_clcplus_2023_500m.parquet"
+}

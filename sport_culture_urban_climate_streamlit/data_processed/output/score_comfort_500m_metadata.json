@@ -1,0 +1,20 @@
+{
+  "step": "OUT.2",
+  "variable": "Score di comfort",
+  "target_grid": "500 m",
+  "input_variables": [
+    "thermal_comfort_pct_hours_winter",
+    "thermal_comfort_pct_hours_spring",
+    "thermal_comfort_pct_hours_summer",
+    "thermal_comfort_pct_hours_autumn"
+  ],
+  "formula": "Media aritmetica delle percentuali di ore di comfort termico di winter, spring, summer e autumn; score = media / 100.",
+  "missing_rule": "Lo score viene calcolato solo se tutte le quattro stagioni sono disponibili.",
+  "range": [
+    0.0,
+    1.0
+  ],
+  "percentile_normalization_applied": false,
+  "weights_applied": false,
+  "output": "score_comfort_500m.parquet"
+}

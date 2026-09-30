@@ -1,0 +1,8 @@
+{
+  "step": "OUT.5",
+  "output_variable": "Valore normalizzato per cella",
+  "source": "indice_finale_3score",
+  "normalization": "Percentile rank nazionale con metodo average, riscalato sul range osservato 0-1.",
+  "missing_rule": "I valori NaN dell'indice finale restano NaN.",
+  "output": "valore_normalizzato_per_cella_500m.parquet"
+}

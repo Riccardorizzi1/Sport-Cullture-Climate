@@ -1,0 +1,12 @@
+height_final_source,height_final_status,height_source_original_eubucco,n,min_height,mean_height,max_height
+EUBUCCO v0.2,eubucco_existing_source_value,msft,1693469,0.1,1.4325039903298211,2.4
+EUBUCCO v0.2,eubucco_existing_source_value,gov-italy-lombardia,395987,0.1,2.0056736711052587,2.4
+EUBUCCO v0.2,eubucco_existing_source_value,osm,209041,0.1,1.9109820561516901,2.4
+EUBUCCO v0.2,eubucco_existing_source_value,gov-italy-toscana,95466,0.1,2.032742547084854,2.4
+EUBUCCO v0.2,eubucco_existing_source_value,gov-italy-emilia-romagna,71886,0.1,1.867166068497197,2.4
+EUBUCCO v0.2,eubucco_existing_source_value,gov-italy-basilicata,51721,1.0,2.1527019972545145,2.4
+EUBUCCO v0.2,eubucco_existing_source_value,gov-italy-abruzzo,4242,0.9,2.050282885431409,2.4
+EUBUCCO v0.2,eubucco_existing_source_value,gov-italy-piemonte,1465,0.2,2.019795221843002,2.4
+EUBUCCO v0.2,eubucco_existing_source_value,gov-italy-sardegna,1127,0.3,2.1164152617568757,2.4
+EUBUCCO v0.2,eubucco_existing_estimated,estimated,473,2.1,2.376109936575053,2.4
+EUBUCCO v0.2,eubucco_existing_source_value,gov-italy-lazio,6,1.6,2.1333333333333333,2.4

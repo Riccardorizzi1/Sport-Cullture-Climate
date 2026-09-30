@@ -1,0 +1,26 @@
+{
+  "step": "3H.1",
+  "variable": "Continuita del tessuto urbano",
+  "source": "Copernicus Share of Built-Up 2024",
+  "source_resolution": "100 m",
+  "source_crs": "EPSG:3035",
+  "definition": "Quota delle 8 celle adiacenti valide che presentano SBU > 0",
+  "neighbourhood": "Moore 8-neighbourhood",
+  "central_cell_rule": "Indicatore calcolato esclusivamente per celle con SBU > 0",
+  "source_nodata": 255,
+  "output_nodata": -9999.0,
+  "range": [
+    0.0,
+    1.0
+  ],
+  "n_built_cells": 8534240,
+  "n_output_cells": 8534240,
+  "n_zero_valid_neighbour_cells": 0,
+  "min": 0.0,
+  "max": 1.0,
+  "mean": 0.6051786884270743,
+  "normalization_applied": false,
+  "score_created": false,
+  "weights_applied": false,
+  "output": "urban_tissue_continuity_2024_100m.tif"
+}

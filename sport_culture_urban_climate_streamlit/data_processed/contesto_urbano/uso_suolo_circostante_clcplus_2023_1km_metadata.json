@@ -1,0 +1,52 @@
+{
+  "step": "3L",
+  "checklist_variable": "Uso del suolo circostante",
+  "status": "validated_variable",
+  "operational_definition": "Composizione percentuale delle 11 classi tematiche ufficiali CLCplus all'interno della cella territoriale di supporto da 1 km.",
+  "source": "Copernicus CLCplus Backbone 2023",
+  "source_year": 2023,
+  "source_resolution": "10 m",
+  "source_crs": "EPSG:3035",
+  "support_grid": "Eurostat/GISCO DEGURBA GRID 2021",
+  "support_resolution": "1 km",
+  "support_grid_final_project_grid": false,
+  "territory": "Italia",
+  "boundary_source": "ISTAT Limiti amministrativi 2023",
+  "cell_selection_rule": "Centro della cella DEGURBA interno al territorio ISTAT.",
+  "border_rule": "Nelle celle costiere/confinarie vengono considerati soltanto i pixel CLCplus il cui centro ricade nel territorio italiano.",
+  "thematic_classes": {
+    "1": "sealed",
+    "2": "woody_needle",
+    "3": "woody_deciduous",
+    "4": "woody_evergreen",
+    "5": "low_growing_woody",
+    "6": "permanent_herbaceous",
+    "7": "periodically_herbaceous",
+    "8": "lichens_mosses",
+    "9": "non_and_sparsely_vegetated",
+    "10": "water",
+    "11": "snow_and_ice"
+  },
+  "special_official_classes": {
+    "253": "coastal_seawater_buffer",
+    "254": "outside_area",
+    "255": "nodata"
+  },
+  "zero_handling": {
+    "value": 0,
+    "treated_as_thematic_class": false,
+    "included_in_share_denominator": false,
+    "handling": "Conservato separatamente come valore non tematico del mosaico/VRT.",
+    "n_pixels": 0,
+    "share_selected_pixels_pct": 0.0
+  },
+  "share_denominator": "Solo pixel appartenenti alle classi tematiche 1-11.",
+  "n_cells": 301441,
+  "n_border_cells": 5092,
+  "cells_without_thematic_data": 1,
+  "reclassification_applied": false,
+  "normalization_applied": false,
+  "weights_applied": false,
+  "score_created": false,
+  "output": "uso_suolo_circostante_clcplus_2023_1km.parquet"
+}

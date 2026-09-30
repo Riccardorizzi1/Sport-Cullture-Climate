@@ -1,0 +1,18 @@
+{
+  "step": "4G.5B",
+  "status": "eubucco_national_qc_completed",
+  "n_rows": 25577441,
+  "n_unique_ids_global": 25577441,
+  "n_duplicate_rows": 0,
+  "n_missing_ids": 0,
+  "n_height_zero": 30979,
+  "n_height_negative": 0,
+  "n_height_nonpositive": 30979,
+  "height_nonpositive_pct": 0.12111844965256688,
+  "records_removed": 0,
+  "height_values_modified": 0,
+  "height_imputation_performed": false,
+  "spatial_matching_performed": false,
+  "dataset_declared_final": false,
+  "next_decision": "Determine treatment of height <= 0 before adopting EUBUCCO as the national morphology layer."
+}

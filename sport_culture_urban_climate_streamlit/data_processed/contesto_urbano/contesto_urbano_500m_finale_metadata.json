@@ -1,0 +1,28 @@
+{
+  "chapter": "4 - Variabili di contesto urbano",
+  "status": "completed",
+  "support_grid": "Griglia nazionale progetto 500 m",
+  "n_cells": 1228032,
+  "n_columns": 88,
+  "components": [
+    "Uso del suolo circostante",
+    "Densità edilizia",
+    "Verde urbano",
+    "Servizi complementari",
+    "Mix funzionale",
+    "Centralità urbana",
+    "Continuità del tessuto urbano"
+  ],
+  "excluded_from_chapter_by_project_decision": [
+    "Pressione infrastrutturale",
+    "Accessibilità pedonale",
+    "Walkability"
+  ],
+  "merge_method": "Merge one-to-one tramite cell_id sulla griglia finale 500 m.",
+  "new_indicators_created": false,
+  "normalization_applied": false,
+  "weights_applied": false,
+  "score_created": false,
+  "output": "griglia_italia_500m_contesto_urbano_finale.parquet",
+  "audit": "audit_finale_contesto_urbano_500m.csv"
+}

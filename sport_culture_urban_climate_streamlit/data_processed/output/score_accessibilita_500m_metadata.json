@@ -1,0 +1,17 @@
+{
+  "step": "OUT.1",
+  "variable": "Score di accessibilità",
+  "target_grid": "500 m",
+  "rule": {
+    "within_500m": 1.0,
+    "between_500m_and_1km": 0.5,
+    "outside_1km": 0.0
+  },
+  "input_variables": [
+    "buffer_500m",
+    "buffer_1km"
+  ],
+  "normalization_applied": false,
+  "weights_applied": false,
+  "output": "score_accessibilita_500m.parquet"
+}

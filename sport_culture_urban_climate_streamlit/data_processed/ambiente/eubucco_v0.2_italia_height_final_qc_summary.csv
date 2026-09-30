@@ -1,0 +1,6 @@
+height_class,n,pct_total_buildings
+unresolved,5494,0.021479865792672536
+height_le_0,0,0.0
+0_lt_height_lt_2p5,2524883,9.87152311288686
+2p5_le_height_lt_3,933383,3.649243096680391
+height_ge_3,22113681,86.45775392464007

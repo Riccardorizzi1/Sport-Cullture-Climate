@@ -1,0 +1,50 @@
+{
+  "step": "4G.3A",
+  "status": "urban_atlas_source_audit_completed",
+  "reference_year": 2021,
+  "source": "Copernicus Land Monitoring Service Urban Atlas Building Block Height 2021",
+  "technical_correction": "CDSE archives were downloaded with a .download extension. Direct GDAL /vsizip access failed because the archive boundary could not be inferred reliably from that extension on the local Windows environment. Only the GeoTIFF members were therefore extracted and opened normally with Rasterio.",
+  "methodology_changed": false,
+  "n_products_inventory": 84,
+  "n_rasters_audited": 84,
+  "n_rasters_accepted": 84,
+  "n_rasters_failed": 0,
+  "n_products_without_tiff": 0,
+  "observed_epsg": [
+    3035
+  ],
+  "observed_dtypes": [
+    "uint16"
+  ],
+  "observed_nodata": [
+    65535.0
+  ],
+  "observed_scales": [
+    1.0
+  ],
+  "observed_offsets": [
+    0.0
+  ],
+  "total_height_pixels_ge3": 13576289,
+  "total_non_nodata_pixels_0_2": 0,
+  "total_nodata_pixels": 399517817,
+  "height_min_m": 3.0,
+  "height_mean_m_pixel_weighted": 9.076394734967707,
+  "height_max_m": 217.0,
+  "raw_size_mb": 44.463993072509766,
+  "extracted_tiff_size_mb": 38.43268013000488,
+  "qc_warnings": [],
+  "urban_atlas_used_as_ground_truth": false,
+  "comparison_with_ghs_obat_performed": false,
+  "svf_created": false,
+  "shading_created": false,
+  "direct_sun_hours_created": false,
+  "solar_exposure_created": false,
+  "resampling_applied": false,
+  "normalization_applied": false,
+  "score_created": false,
+  "common_project_grid_applied": false,
+  "inventory": "C:\\Users\\ricca\\Sport & Culture Urban Climate\\data_processed\\ambiente\\urban_atlas_bbh_2021_italia_inventory.csv",
+  "raster_audit": "C:\\Users\\ricca\\Sport & Culture Urban Climate\\data_processed\\ambiente\\urban_atlas_bbh_2021_italia_raster_audit.csv",
+  "extracted_tiff_directory": "C:\\Users\\ricca\\Sport & Culture Urban Climate\\data_raw\\urban_atlas_bbh_2021_italia\\extracted_tifs"
+}

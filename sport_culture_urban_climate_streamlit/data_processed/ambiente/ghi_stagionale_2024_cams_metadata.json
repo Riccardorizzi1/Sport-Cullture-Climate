@@ -1,0 +1,112 @@
+{
+  "step": "4E",
+  "status": "validated_variable",
+  "checklist_variable": "Solar radiation",
+  "variable": "Global Horizontal Irradiation",
+  "environmental_reference_year": 2024,
+  "source": "Copernicus Atmosphere Monitoring Service (CAMS) Gridded Solar Radiation",
+  "dataset": "cams-gridded-solar-radiation",
+  "ads_endpoint": "https://ads.atmosphere.copernicus.eu/api",
+  "version": "4.6_rev2",
+  "version_note": "CAMS 4.6 rev2 selected because 2024 is included in this release.",
+  "sky_type": "observed_cloud",
+  "sky_interpretation": "Observed-cloud / all-sky conditions.",
+  "source_temporal_resolution": "15 minutes",
+  "source_spatial_resolution": "0.1 degree",
+  "source_unit": "Wh m-2 per 15-minute interval",
+  "output_unit": "kWh m-2 per season",
+  "derivation": "Direct aggregation of CAMS GHI: sum of the 15-minute irradiation values within each season, followed by Wh-to-kWh conversion.",
+  "proxy_used": false,
+  "radiation_derived_from_other_variables": false,
+  "season_definition": {
+    "winter": [
+      "2024-01",
+      "2024-02",
+      "2024-12"
+    ],
+    "spring": [
+      "2024-03",
+      "2024-04",
+      "2024-05"
+    ],
+    "summer": [
+      "2024-06",
+      "2024-07",
+      "2024-08"
+    ],
+    "autumn": [
+      "2024-09",
+      "2024-10",
+      "2024-11"
+    ]
+  },
+  "expected_intervals_by_season": {
+    "winter": 8736,
+    "spring": 8832,
+    "summer": 8832,
+    "autumn": 8736
+  },
+  "territorial_mask": "ISTAT administrative boundaries 2023",
+  "territorial_selection_rule": "CAMS grid-cell centre inside Italian ISTAT territory.",
+  "n_italy_grid_cells": 3324,
+  "season_statistics": {
+    "winter": {
+      "expected_15min_intervals_per_valid_cell": 8736,
+      "n_valid_cells": 3323,
+      "n_missing_cells": 1,
+      "n_partial_cells": 0,
+      "min_kwh_m2": 92.04840087890625,
+      "mean_kwh_m2": 186.82557678222656,
+      "max_kwh_m2": 275.8320007324219
+    },
+    "spring": {
+      "expected_15min_intervals_per_valid_cell": 8832,
+      "n_valid_cells": 3323,
+      "n_missing_cells": 1,
+      "n_partial_cells": 0,
+      "min_kwh_m2": 278.65081787109375,
+      "mean_kwh_m2": 452.3573303222656,
+      "max_kwh_m2": 579.0504150390625
+    },
+    "summer": {
+      "expected_15min_intervals_per_valid_cell": 8832,
+      "n_valid_cells": 3323,
+      "n_missing_cells": 1,
+      "n_partial_cells": 0,
+      "min_kwh_m2": 370.3116149902344,
+      "mean_kwh_m2": 619.9756469726562,
+      "max_kwh_m2": 718.3440551757812
+    },
+    "autumn": {
+      "expected_15min_intervals_per_valid_cell": 8736,
+      "n_valid_cells": 3323,
+      "n_missing_cells": 1,
+      "n_partial_cells": 0,
+      "min_kwh_m2": 176.56080627441406,
+      "mean_kwh_m2": 281.5727233886719,
+      "max_kwh_m2": 387.1476135253906
+    }
+  },
+  "minimum_15min_ghi_wh_m2": 0.0,
+  "maximum_15min_ghi_wh_m2": 277.20001220703125,
+  "packing_scales_observed": [
+    1.2
+  ],
+  "packing_offsets_observed": [
+    0.0
+  ],
+  "source_dtypes_observed": [
+    "uint8"
+  ],
+  "crs": "EPSG:4326",
+  "reprojection_applied": false,
+  "resampling_applied": false,
+  "interpolation_applied": false,
+  "normalization_applied": false,
+  "weights_applied": false,
+  "score_created": false,
+  "common_project_grid_applied": false,
+  "important_limitation": "GHI describes irradiation on a horizontal surface at the CAMS 0.1-degree grid scale. It does not represent local building shading, sky-view factor, facade orientation or street-level direct-sun exposure.",
+  "raw_directory": "C:\\Users\\ricca\\Sport & Culture Urban Climate\\data_raw\\cams_solar_radiation_2024",
+  "output": "ghi_stagionale_2024_cams_0p1deg.tif"
+}

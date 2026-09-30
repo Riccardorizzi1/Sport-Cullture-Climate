@@ -1,0 +1,20 @@
+{
+  "step": "OUT.4B2",
+  "block": "Offerta e domanda",
+  "target_grid": "500 m",
+  "normalization": "Percentile nazionale riscalato 0-1",
+  "variables": {
+    "strutture_per_10k": "alto = meglio",
+    "concentrazione_hhi_totale": "basso = meglio",
+    "disponibilita_locale_totale": "alto = meglio",
+    "sport_per_10k": "alto = meglio",
+    "concentrazione_hhi_sport": "basso = meglio",
+    "disponibilita_locale_sport": "alto = meglio",
+    "cultura_per_10k": "alto = meglio",
+    "concentrazione_hhi_cultura": "basso = meglio",
+    "disponibilita_locale_cultura": "alto = meglio"
+  },
+  "missing_rule": "I valori mancanti originali restano NaN.",
+  "score_created": false,
+  "output": "normalizzazione_offerta_domanda_500m.parquet"
+}

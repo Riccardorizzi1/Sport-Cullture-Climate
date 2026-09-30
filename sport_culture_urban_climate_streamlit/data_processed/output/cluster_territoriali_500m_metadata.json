@@ -1,0 +1,47 @@
+{
+  "step": "OUT.9",
+  "output_variable": "Cluster territoriali",
+  "method": "K-Means implementato con NumPy",
+  "n_clusters": 4,
+  "variables": [
+    "score_accessibilita",
+    "score_comfort",
+    "score_attrattivita_territoriale"
+  ],
+  "normalization": "Nessuna normalizzazione aggiuntiva; i tre score sono già su scala 0-1.",
+  "max_iterations": 50,
+  "tolerance": 1e-05,
+  "random_state": 42,
+  "missing_rule": "Le celle prive di almeno uno dei tre score non vengono clusterizzate.",
+  "cluster_profiles": {
+    "cluster_1": {
+      "n_celle": 482765,
+      "quota_celle_pct": 50.81046889422384,
+      "score_accessibilita_medio": 0.0,
+      "score_comfort_medio": 0.49041691422462463,
+      "score_attrattivita_medio": 0.013454034924507141
+    },
+    "cluster_2": {
+      "n_celle": 220124,
+      "quota_celle_pct": 23.16780142485915,
+      "score_accessibilita_medio": 1.0,
+      "score_comfort_medio": 0.49502769112586975,
+      "score_attrattivita_medio": 0.35646477341651917
+    },
+    "cluster_3": {
+      "n_celle": 36931,
+      "quota_celle_pct": 3.8869458778755304,
+      "score_accessibilita_medio": 0.4592212438583374,
+      "score_comfort_medio": 0.4940110146999359,
+      "score_attrattivita_medio": 0.396350234746933
+    },
+    "cluster_4": {
+      "n_celle": 210309,
+      "quota_celle_pct": 22.134783803041483,
+      "score_accessibilita_medio": 0.5,
+      "score_comfort_medio": 0.49232614040374756,
+      "score_attrattivita_medio": 0.001029719365760684
+    }
+  },
+  "output": "cluster_territoriali_500m.parquet"
+}
