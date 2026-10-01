@@ -1637,30 +1637,25 @@ def render_kepler(
                 "pitch": 0,
                 "bearing": 0,
             },
+    
+
+                 "mapStyle": {
+            "styleType":
+                "dark"
+                if dark_mode
+                else "light",
+
+            "visibleLayerGroups": {
+                "label": True,
+                "road": True,
+                "border": True,
+                "building": True,
+                "water": True,
+                "land": True,
+            },
+        },
     },
-
-            "mapStyle": {
-    "styleType":
-        "dark"
-        if dark_mode
-        else "light",
-
-    "mapboxApiAccessToken":
-        st.secrets.get(
-            "MAPBOX_TOKEN",
-            ""
-        ),
-
-    "visibleLayerGroups": {
-        "label": True,
-        "road": True,
-        "border": True,
-        "building": True,
-        "water": True,
-        "land": True,
-    },
-},
-
+}
 
     # --------------------------------------------------------
     # CREA UNA SOLA MAPPA
