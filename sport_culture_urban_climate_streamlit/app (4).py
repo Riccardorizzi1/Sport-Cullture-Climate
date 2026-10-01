@@ -1748,10 +1748,6 @@ def render_kepler(
         return
 
 
-    # --------------------------------------------------------
-    # GEOMETRIE VALIDE
-    # --------------------------------------------------------
-
     gdf = gdf[
         gdf.geometry.notna()
         & ~gdf.geometry.is_empty
@@ -1768,7 +1764,7 @@ def render_kepler(
 
 
     # --------------------------------------------------------
-    # CENTRO MAPPA
+    # CENTRO E ZOOM
     # --------------------------------------------------------
 
     minx, miny, maxx, maxy = (
@@ -1807,174 +1803,279 @@ def render_kepler(
 
 
     # --------------------------------------------------------
-    # BASEMAP OPENFREEMAP
+    # CHIAVE LEGGERA DELLA MAPPA
     #
-    # Nessun token.
-    # Nessuna API key.
+    # Serve per capire se territorio / indicatore / tema
+    # sono realmente cambiati.
     # --------------------------------------------------------
 
-    if dark_mode:
+    if "area" in gdf.columns:
 
-        basemap_id = (
-            "openfreemap_dark"
-        )
-
-        basemap_url = (
-            "https://tiles.openfreemap.org/"
-            "styles/dark"
-        )
-
-        basemap_label = (
-            "OpenFreeMap Dark"
+        area_signature = (
+            gdf["area"]
+            .astype(str)
         )
 
     else:
 
-        basemap_id = (
-            "openfreemap_liberty"
-        )
-
-        basemap_url = (
-            "https://tiles.openfreemap.org/"
-            "styles/liberty"
-        )
-
-        basemap_label = (
-            "OpenFreeMap Liberty"
+        area_signature = pd.Series(
+            gdf.index.astype(str),
+            index=gdf.index,
         )
 
 
-    # --------------------------------------------------------
-    # CONFIG KEPLER
-    # --------------------------------------------------------
+    if "valore_mappa" in gdf.columns:
 
-    config = {
-        "version": "v1",
+        value_signature = pd.to_numeric(
+            gdf["valore_mappa"],
+            errors="coerce",
+        ).fillna(-999999.0)
 
-        "config": {
+    else:
 
-            "mapState": {
-                "latitude": latitude,
-                "longitude": longitude,
-                "zoom": zoom,
-                "pitch": 0,
-                "bearing": 0,
-            },
-
-            "mapStyle": {
-
-                "styleType":
-                    basemap_id,
-
-                "topLayerGroups": {},
-
-                "visibleLayerGroups": {
-                    "label": True,
-                    "road": True,
-                    "border": True,
-                    "building": True,
-                    "water": True,
-                    "land": True,
-                    "3d building": False,
-                },
-
-                "mapStyles": {
-
-                    basemap_id: {
-                        "id":
-                            basemap_id,
-
-                        "label":
-                            basemap_label,
-
-                        "url":
-                            basemap_url,
-                    }
-                },
-            },
-        },
-    }
-
-
-    # --------------------------------------------------------
-    # DATI
-    # --------------------------------------------------------
-
-    geojson = json.loads(
-        gdf.to_json(
-            drop_id=True
+        value_signature = pd.Series(
+            0.0,
+            index=gdf.index,
         )
+
+
+    signature_df = pd.DataFrame(
+        {
+            "area": area_signature.values,
+            "valore": value_signature.values,
+        }
     )
 
 
-    mappa = KeplerGl(
-        height=height,
+    data_hash = int(
+        pd.util.hash_pandas_object(
+            signature_df,
+            index=False,
+        )
+        .sum()
+    )
 
-        data={
-            "Territorio":
-                geojson
-        },
 
-        config=config,
+    map_key = (
+        len(gdf),
+        round(float(minx), 5),
+        round(float(miny), 5),
+        round(float(maxx), 5),
+        round(float(maxy), 5),
+        data_hash,
+        bool(dark_mode),
+        int(height),
     )
 
 
     # --------------------------------------------------------
-    # HTML TEMPORANEO
+    # RIGENERA KEPLER SOLO SE SERVE
     # --------------------------------------------------------
 
-    with tempfile.NamedTemporaryFile(
-        suffix=".html",
-        delete=False,
-    ) as tmp:
+    if (
+        st.session_state.get(
+            "_kepler_map_key"
+        )
+        != map_key
+        or "_kepler_map_html"
+        not in st.session_state
+    ):
 
-        temp_path = Path(
-            tmp.name
+
+        # ----------------------------------------------------
+        # BASEMAP OPENFREEMAP
+        # ----------------------------------------------------
+
+        if dark_mode:
+
+            basemap_id = (
+                "openfreemap_dark"
+            )
+
+            basemap_url = (
+                "https://tiles.openfreemap.org/"
+                "styles/dark"
+            )
+
+            basemap_label = (
+                "OpenFreeMap Dark"
+            )
+
+        else:
+
+            basemap_id = (
+                "openfreemap_liberty"
+            )
+
+            basemap_url = (
+                "https://tiles.openfreemap.org/"
+                "styles/liberty"
+            )
+
+            basemap_label = (
+                "OpenFreeMap Liberty"
+            )
+
+
+        # ----------------------------------------------------
+        # CONFIG KEPLER
+        # ----------------------------------------------------
+
+        config = {
+            "version": "v1",
+
+            "config": {
+
+                "mapState": {
+                    "latitude": latitude,
+                    "longitude": longitude,
+                    "zoom": zoom,
+                    "pitch": 0,
+                    "bearing": 0,
+                },
+
+                "mapStyle": {
+
+                    "styleType":
+                        basemap_id,
+
+                    "topLayerGroups": {},
+
+                    "visibleLayerGroups": {
+                        "label": True,
+                        "road": True,
+                        "border": True,
+                        "building": True,
+                        "water": True,
+                        "land": True,
+                        "3d building": False,
+                    },
+
+                    "mapStyles": {
+
+                        basemap_id: {
+                            "id":
+                                basemap_id,
+
+                            "label":
+                                basemap_label,
+
+                            "url":
+                                basemap_url,
+                        }
+                    },
+                },
+            },
+        }
+
+
+        # ----------------------------------------------------
+        # GEOJSON
+        # ----------------------------------------------------
+
+        geojson = json.loads(
+            gdf.to_json(
+                drop_id=True
+            )
         )
 
 
-    try:
+        # ----------------------------------------------------
+        # CREA KEPLER
+        # ----------------------------------------------------
 
-        mappa.save_to_html(
-            file_name=str(
-                temp_path
-            ),
-            read_only=True,
-        )
-
-
-        html = temp_path.read_text(
-            encoding="utf-8"
-        )
-
-
-        components.html(
-            html,
+        mappa = KeplerGl(
             height=height,
-            scrolling=False,
+
+            data={
+                "Territorio":
+                    geojson
+            },
+
+            config=config,
         )
 
 
-    finally:
+        # ----------------------------------------------------
+        # HTML TEMPORANEO
+        # ----------------------------------------------------
+
+        with tempfile.NamedTemporaryFile(
+            suffix=".html",
+            delete=False,
+        ) as tmp:
+
+            temp_path = Path(
+                tmp.name
+            )
+
 
         try:
 
-            temp_path.unlink(
-                missing_ok=True
+            mappa.save_to_html(
+                file_name=str(
+                    temp_path
+                ),
+                read_only=True,
             )
 
-        except Exception:
 
-            pass
+            html = temp_path.read_text(
+                encoding="utf-8"
+            )
 
 
-    del geojson
-    del mappa
+        finally:
 
-    try:
+            try:
+
+                temp_path.unlink(
+                    missing_ok=True
+                )
+
+            except Exception:
+
+                pass
+
+
+        # ----------------------------------------------------
+        # SOSTITUISCE LA VECCHIA MAPPA
+        # ----------------------------------------------------
+
+        st.session_state[
+            "_kepler_map_html"
+        ] = html
+
+        st.session_state[
+            "_kepler_map_key"
+        ] = map_key
+
+
+        # ----------------------------------------------------
+        # LIBERA SUBITO GLI OGGETTI PESANTI
+        # ----------------------------------------------------
+
+        del geojson
+        del mappa
         del html
-    except Exception:
-        pass
+
+        gc.collect()
+
+
+    # --------------------------------------------------------
+    # MOSTRA L'UNICA MAPPA SALVATA
+    # --------------------------------------------------------
+
+    components.html(
+        st.session_state[
+            "_kepler_map_html"
+        ],
+        height=height,
+        scrolling=False,
+    )
+
+
+    del signature_df
 
     gc.collect()
 
