@@ -409,36 +409,82 @@ def trova_colonna(
 # LOGO SBL
 # ============================================================
 
-logo_sbl = ROOT / "logo_sbl.png"
+APP_DIR = Path(
+    __file__
+).resolve().parent
 
-if logo_sbl.exists():
+
+logo_candidates = [
+    APP_DIR
+    / "logo_sbl.png",
+
+    APP_DIR.parent
+    / "logo_sbl.png",
+
+    Path.cwd()
+    / "logo_sbl.png",
+
+    Path.cwd()
+    / "sport_culture_urban_climate_streamlit"
+    / "logo_sbl.png",
+]
+
+
+logo_sbl = next(
+    (
+        path
+        for path in logo_candidates
+        if path.exists()
+    ),
+    None,
+)
+
+
+if logo_sbl is not None:
 
     encoded_logo = base64.b64encode(
         logo_sbl.read_bytes()
-    ).decode("ascii")
-
-    logo_html = (
-        '<a href="https://www.sblconsultancy.it/" '
-        'target="_blank" '
-        'title="SBL Consultancy" '
-        'style="display:block; text-decoration:none; '
-        'margin:4px 0 18px 0;">'
-        f'<img src="data:image/png;base64,{encoded_logo}" '
-        'alt="SBL Consultancy" '
-        'style="display:block; width:115px; '
-        'max-width:100%; height:auto;">'
-        '</a>'
+    ).decode(
+        "ascii"
     )
+
 
     st.sidebar.markdown(
-        logo_html,
+        f"""
+        <div
+            style="
+                width:100%;
+                display:flex;
+                justify-content:flex-start;
+                align-items:center;
+                margin:2px 0 20px 0;
+            "
+        >
+            <a
+                href="https://www.sblconsultancy.it/"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="SBL Consultancy"
+                style="
+                    display:inline-block;
+                    text-decoration:none;
+                "
+            >
+                <img
+                    src="data:image/png;base64,{encoded_logo}"
+                    alt="SBL Consultancy"
+                    style="
+                        display:block;
+                        width:145px;
+                        max-width:100%;
+                        height:auto;
+                        object-fit:contain;
+                    "
+                >
+            </a>
+        </div>
+        """,
         unsafe_allow_html=True,
-    )
-
-else:
-
-    st.sidebar.warning(
-        "Logo SBL non trovato."
     )
 
 
@@ -725,72 +771,145 @@ st.markdown(
     """
 <style>
 
-/* Rettangolo del selectbox */
+/* ==========================================================
+   SELECTBOX SIDEBAR
+   ========================================================== */
+
+/* contenitore principale */
 section[data-testid="stSidebar"]
+[data-testid="stSelectbox"]
 div[data-baseweb="select"] > div {
 
     background-color: #FFFFFF !important;
-    border: 1px solid #D4E7EC !important;
+
+    border: 1px solid
+        rgba(8, 43, 70, 0.20) !important;
+
     border-radius: 7px !important;
+
+    opacity: 1 !important;
 }
 
 
-/* Testo selezionato */
+/* QUALSIASI testo interno al select */
 section[data-testid="stSidebar"]
-div[data-baseweb="select"] span {
+[data-testid="stSelectbox"]
+div[data-baseweb="select"] * {
 
     color: #082B46 !important;
-    -webkit-text-fill-color: #082B46 !important;
+
+    -webkit-text-fill-color:
+        #082B46 !important;
+
+    opacity: 1 !important;
+
+    visibility: visible !important;
 }
 
 
-/* Eventuale input interno */
+/* valore selezionato: Italia, Lombardia, ecc. */
 section[data-testid="stSidebar"]
-div[data-baseweb="select"] input {
+[data-testid="stSelectbox"]
+[role="combobox"] {
 
     color: #082B46 !important;
-    -webkit-text-fill-color: #082B46 !important;
-    caret-color: #082B46 !important;
+
+    -webkit-text-fill-color:
+        #082B46 !important;
+
+    opacity: 1 !important;
 }
 
 
-/* Freccia */
+/* eventuali span interni */
 section[data-testid="stSidebar"]
-div[data-baseweb="select"] svg {
+[data-testid="stSelectbox"]
+[role="combobox"] span {
 
     color: #082B46 !important;
+
+    -webkit-text-fill-color:
+        #082B46 !important;
+
+    opacity: 1 !important;
+}
+
+
+/* eventuale input BaseWeb */
+section[data-testid="stSidebar"]
+[data-testid="stSelectbox"]
+input {
+
+    color: #082B46 !important;
+
+    -webkit-text-fill-color:
+        #082B46 !important;
+
+    caret-color:
+        #082B46 !important;
+
+    opacity: 1 !important;
+}
+
+
+/* freccia */
+section[data-testid="stSidebar"]
+[data-testid="stSelectbox"]
+svg {
+
+    color: #082B46 !important;
+
     fill: #082B46 !important;
+
+    opacity: 1 !important;
 }
 
 
-/* Menu aperto */
+/* ==========================================================
+   MENU APERTO
+   ========================================================== */
+
 div[data-baseweb="popover"]
 [role="listbox"] {
 
-    background-color: #FFFFFF !important;
+    background-color:
+        #FFFFFF !important;
 }
 
 
 div[data-baseweb="popover"]
 [role="option"] {
 
-    background-color: #FFFFFF !important;
-    color: #082B46 !important;
+    background-color:
+        #FFFFFF !important;
+
+    color:
+        #082B46 !important;
+
+    -webkit-text-fill-color:
+        #082B46 !important;
 }
 
 
 div[data-baseweb="popover"]
 [role="option"] * {
 
-    color: #082B46 !important;
-    -webkit-text-fill-color: #082B46 !important;
+    color:
+        #082B46 !important;
+
+    -webkit-text-fill-color:
+        #082B46 !important;
+
+    opacity:
+        1 !important;
 }
 
 
 div[data-baseweb="popover"]
 [role="option"]:hover {
 
-    background-color: #DDF4F7 !important;
+    background-color:
+        #DDF4F7 !important;
 }
 
 </style>
