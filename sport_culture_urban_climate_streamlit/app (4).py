@@ -1525,7 +1525,7 @@ def render_kepler(
     height=720,
 ):
 
-    if gdf.empty:
+    if gdf is None or gdf.empty:
 
         st.warning(
             "Nessun dato disponibile "
@@ -1536,41 +1536,38 @@ def render_kepler(
 
 
     # --------------------------------------------------------
-    # ELIMINA GEOMETRIE VUOTE
+    # GEOMETRIE VALIDE
     # --------------------------------------------------------
 
     gdf = gdf[
         gdf.geometry.notna()
-    ].copy()
-
-    gdf = gdf[
-        ~gdf.geometry.is_empty
+        & ~gdf.geometry.is_empty
     ].copy()
 
 
     if gdf.empty:
 
         st.warning(
-            "Nessuna geometria valida "
-            "per la selezione corrente."
+            "Nessuna geometria valida."
         )
 
         return
 
 
     # --------------------------------------------------------
-    # VISTA INIZIALE
-    # calcolata sul territorio mostrato
+    # CENTRO E ZOOM
     # --------------------------------------------------------
 
     minx, miny, maxx, maxy = (
         gdf.total_bounds
     )
 
+
     longitude = (
         float(minx)
         + float(maxx)
     ) / 2
+
 
     latitude = (
         float(miny)
@@ -1578,32 +1575,18 @@ def render_kepler(
     ) / 2
 
 
-    span_x = max(
-        float(maxx - minx),
-        0.01,
-    )
-
-    span_y = max(
-        float(maxy - miny),
-        0.01,
-    )
-
     span = max(
-        span_x,
-        span_y * 1.4,
+        float(maxx - minx),
+        float(maxy - miny) * 1.4,
+        0.01,
     )
 
-
-    zoom = (
-        math.log2(
-            360.0 / span
-        )
-        - 0.9
-    )
 
     zoom = float(
         np.clip(
-            zoom,
+            math.log2(
+                360.0 / span
+            ) - 0.9,
             3.0,
             12.0,
         )
@@ -1611,21 +1594,10 @@ def render_kepler(
 
 
     # --------------------------------------------------------
-    # GEOJSON
+    # CONFIG KEPLER MINIMA
     # --------------------------------------------------------
 
-    geojson = json.loads(
-        gdf.to_json(
-            drop_id=True
-        )
-    )
-
-
-    # --------------------------------------------------------
-    # CONFIG KEPLER
-    # --------------------------------------------------------
-
-        config = {
+    config = {
         "version": "v1",
 
         "config": {
@@ -1643,51 +1615,50 @@ def render_kepler(
                     "dark"
                     if dark_mode
                     else "light",
-
-                "visibleLayerGroups": {
-                    "label": True,
-                    "road": True,
-                    "border": True,
-                    "building": True,
-                    "water": True,
-                    "land": True,
-                },
             },
         },
     }
 
+
     # --------------------------------------------------------
-    # CREA UNA SOLA MAPPA
+    # GEOJSON
+    # --------------------------------------------------------
+
+    geojson = json.loads(
+        gdf.to_json(
+            drop_id=True
+        )
+    )
+
+
+    # --------------------------------------------------------
+    # KEPLER
     # --------------------------------------------------------
 
     mappa = KeplerGl(
         height=height,
+
         data={
             "Territorio":
                 geojson
         },
+
         config=config,
     )
 
 
     # --------------------------------------------------------
-    # FILE TEMPORANEO UNICO
-    #
-    # Evita collisioni quando più utenti
-    # aprono la dashboard contemporaneamente.
+    # HTML TEMPORANEO
     # --------------------------------------------------------
 
-    temp = tempfile.NamedTemporaryFile(
-        prefix="sport_culture_kepler_",
+    with tempfile.NamedTemporaryFile(
         suffix=".html",
         delete=False,
-    )
+    ) as tmp:
 
-    temp_path = Path(
-        temp.name
-    )
-
-    temp.close()
+        temp_path = Path(
+            tmp.name
+        )
 
 
     try:
@@ -1705,26 +1676,60 @@ def render_kepler(
         )
 
 
-        # Streamlit recente
-        if hasattr(
-            st,
-            "iframe"
-        ):
+        # ----------------------------------------------------
+        # TOKEN MAPBOX
+        #
+        # Se MAPBOX_TOKEN è presente nei Secrets di Streamlit,
+        # sostituisce automaticamente quello interno di Kepler.
+        # Se non è presente, l'app continua comunque a funzionare.
+        # ----------------------------------------------------
 
-            st.iframe(
-                html,
-                width="stretch",
-                height=height,
+        mapbox_token = ""
+
+        try:
+
+            mapbox_token = (
+                st.secrets.get(
+                    "MAPBOX_TOKEN",
+                    ""
+                )
+                or ""
             )
 
-        # fallback versioni precedenti
-        else:
+        except Exception:
 
-            components.html(
-                html,
-                height=height,
-                scrolling=False,
+            mapbox_token = (
+                os.environ.get(
+                    "MAPBOX_TOKEN",
+                    ""
+                )
             )
+
+
+        if mapbox_token:
+
+            import re
+
+            html, _ = re.subn(
+                r"""(const\s+MAPBOX_TOKEN\s*=\s*)['"][^'"]*['"]""",
+                lambda m: (
+                    m.group(1)
+                    + repr(mapbox_token)
+                ),
+                html,
+                count=1,
+            )
+
+
+        # ----------------------------------------------------
+        # MOSTRA MAPPA
+        # ----------------------------------------------------
+
+        components.html(
+            html,
+            height=height,
+            scrolling=False,
+        )
 
 
     finally:
@@ -1754,6 +1759,7 @@ def render_kepler(
 
     gc.collect()
 
+
 def render_legenda_mappa(
     gdf,
     metric_label,
@@ -1762,24 +1768,39 @@ def render_legenda_mappa(
     if (
         gdf is None
         or gdf.empty
-        or "valore_mappa" not in gdf.columns
+        or "valore_mappa"
+        not in gdf.columns
     ):
         return
+
 
     valori = pd.to_numeric(
         gdf["valore_mappa"],
         errors="coerce",
     ).dropna()
 
+
     if valori.empty:
         return
 
-    minimo = float(valori.min())
-    mediana = float(valori.median())
-    massimo = float(valori.max())
+
+    minimo = float(
+        valori.min()
+    )
+
+    mediana = float(
+        valori.median()
+    )
+
+    massimo = float(
+        valori.max()
+    )
+
 
     def formato(x):
+
         if abs(x) >= 1000:
+
             return (
                 f"{x:,.1f}"
                 .replace(",", "X")
@@ -1792,9 +1813,11 @@ def render_legenda_mappa(
             .replace(".", ",")
         )
 
+
     st.markdown(
         f"**Legenda — {metric_label}**"
     )
+
 
     st.markdown(
         """
@@ -1815,22 +1838,27 @@ def render_legenda_mappa(
         unsafe_allow_html=True,
     )
 
+
     c1, c2, c3 = st.columns(3)
+
 
     with c1:
         st.caption(
             f"Minimo: {formato(minimo)}"
         )
 
+
     with c2:
         st.caption(
             f"Mediana: {formato(mediana)}"
         )
 
+
     with c3:
         st.caption(
             f"Massimo: {formato(massimo)}"
         )
+
 
 # ============================================================
 # METRICHE MAPPA
