@@ -412,6 +412,75 @@ st.sidebar.caption(
     "Urban Climate · Italia"
 )
 
+
+# ============================================================
+# SBL CONSULTANCY
+# ============================================================
+
+st.sidebar.markdown(
+    """
+    <a
+        href="https://www.sblconsultancy.it/"
+        target="_blank"
+        style="
+            display:flex;
+            align-items:center;
+            gap:12px;
+            text-decoration:none;
+            margin-top:18px;
+            margin-bottom:18px;
+            padding:12px;
+            border-radius:12px;
+            background:rgba(255,255,255,0.10);
+            border:1px solid rgba(255,255,255,0.16);
+        "
+    >
+
+        <img
+            src="https://www.sblconsultancy.it/favicon.ico"
+            alt="SBL"
+            style="
+                width:42px;
+                height:42px;
+                object-fit:contain;
+                background:white;
+                border-radius:8px;
+                padding:4px;
+            "
+        >
+
+        <div
+            style="
+                line-height:1.15;
+                color:white;
+            "
+        >
+            <div
+                style="
+                    font-weight:700;
+                    font-size:14px;
+                    color:white;
+                "
+            >
+                SBL Consultancy
+            </div>
+
+            <div
+                style="
+                    font-size:10px;
+                    margin-top:4px;
+                    color:rgba(255,255,255,0.72);
+                "
+            >
+                Sport Business Lab
+            </div>
+        </div>
+
+    </a>
+    """,
+    unsafe_allow_html=True,
+)
+
 st.sidebar.markdown("---")
 
 
@@ -671,6 +740,67 @@ section[data-testid="stSidebar"] * {{
 
 </style>
 """,
+    unsafe_allow_html=True,
+)
+
+
+# ============================================================
+# FIX CONTROLLI SIDEBAR
+# ============================================================
+
+st.markdown(
+    """
+    <style>
+
+    /* Selectbox nella sidebar */
+    section[data-testid="stSidebar"]
+    div[data-baseweb="select"] > div {
+        background-color: #FFFFFF !important;
+        border-color: rgba(8,43,70,0.18) !important;
+    }
+
+    section[data-testid="stSidebar"]
+    div[data-baseweb="select"] span,
+
+    section[data-testid="stSidebar"]
+    div[data-baseweb="select"] input,
+
+    section[data-testid="stSidebar"]
+    div[data-baseweb="select"] div {
+        color: #082B46 !important;
+        -webkit-text-fill-color: #082B46 !important;
+    }
+
+    section[data-testid="stSidebar"]
+    div[data-baseweb="select"] svg {
+        fill: #082B46 !important;
+        color: #082B46 !important;
+    }
+
+    /* Menu aperto del selectbox */
+    div[data-baseweb="popover"] {
+        color: #082B46 !important;
+    }
+
+    div[data-baseweb="popover"]
+    [role="option"] {
+        background-color: #FFFFFF !important;
+        color: #082B46 !important;
+    }
+
+    div[data-baseweb="popover"]
+    [role="option"] * {
+        color: #082B46 !important;
+        -webkit-text-fill-color: #082B46 !important;
+    }
+
+    div[data-baseweb="popover"]
+    [role="option"]:hover {
+        background-color: #DDF4F7 !important;
+    }
+
+    </style>
+    """,
     unsafe_allow_html=True,
 )
 
@@ -1555,7 +1685,7 @@ def render_kepler(
 
 
     # --------------------------------------------------------
-    # CENTRO E ZOOM
+    # CENTRO MAPPA
     # --------------------------------------------------------
 
     minx, miny, maxx, maxy = (
@@ -1577,7 +1707,7 @@ def render_kepler(
 
     span = max(
         float(maxx - minx),
-        float(maxy - miny) * 1.4,
+        float(maxy - miny) * 1.35,
         0.01,
     )
 
@@ -1586,15 +1716,53 @@ def render_kepler(
         np.clip(
             math.log2(
                 360.0 / span
-            ) - 0.9,
+            ) - 0.65,
             3.0,
-            12.0,
+            13.0,
         )
     )
 
 
     # --------------------------------------------------------
-    # CONFIG KEPLER MINIMA
+    # BASEMAP OPENFREEMAP
+    #
+    # Nessun token.
+    # Nessuna API key.
+    # --------------------------------------------------------
+
+    if dark_mode:
+
+        basemap_id = (
+            "openfreemap_dark"
+        )
+
+        basemap_url = (
+            "https://tiles.openfreemap.org/"
+            "styles/dark"
+        )
+
+        basemap_label = (
+            "OpenFreeMap Dark"
+        )
+
+    else:
+
+        basemap_id = (
+            "openfreemap_liberty"
+        )
+
+        basemap_url = (
+            "https://tiles.openfreemap.org/"
+            "styles/liberty"
+        )
+
+        basemap_label = (
+            "OpenFreeMap Liberty"
+        )
+
+
+    # --------------------------------------------------------
+    # CONFIG KEPLER
     # --------------------------------------------------------
 
     config = {
@@ -1611,17 +1779,42 @@ def render_kepler(
             },
 
             "mapStyle": {
+
                 "styleType":
-                    "dark"
-                    if dark_mode
-                    else "light",
+                    basemap_id,
+
+                "topLayerGroups": {},
+
+                "visibleLayerGroups": {
+                    "label": True,
+                    "road": True,
+                    "border": True,
+                    "building": True,
+                    "water": True,
+                    "land": True,
+                    "3d building": False,
+                },
+
+                "mapStyles": {
+
+                    basemap_id: {
+                        "id":
+                            basemap_id,
+
+                        "label":
+                            basemap_label,
+
+                        "url":
+                            basemap_url,
+                    }
+                },
             },
         },
     }
 
 
     # --------------------------------------------------------
-    # GEOJSON
+    # DATI
     # --------------------------------------------------------
 
     geojson = json.loads(
@@ -1630,10 +1823,6 @@ def render_kepler(
         )
     )
 
-
-    # --------------------------------------------------------
-    # KEPLER
-    # --------------------------------------------------------
 
     mappa = KeplerGl(
         height=height,
@@ -1676,55 +1865,6 @@ def render_kepler(
         )
 
 
-        # ----------------------------------------------------
-        # TOKEN MAPBOX
-        #
-        # Se MAPBOX_TOKEN è presente nei Secrets di Streamlit,
-        # sostituisce automaticamente quello interno di Kepler.
-        # Se non è presente, l'app continua comunque a funzionare.
-        # ----------------------------------------------------
-
-        mapbox_token = ""
-
-        try:
-
-            mapbox_token = (
-                st.secrets.get(
-                    "MAPBOX_TOKEN",
-                    ""
-                )
-                or ""
-            )
-
-        except Exception:
-
-            mapbox_token = (
-                os.environ.get(
-                    "MAPBOX_TOKEN",
-                    ""
-                )
-            )
-
-
-        if mapbox_token:
-
-            import re
-
-            html, _ = re.subn(
-                r"""(const\s+MAPBOX_TOKEN\s*=\s*)['"][^'"]*['"]""",
-                lambda m: (
-                    m.group(1)
-                    + repr(mapbox_token)
-                ),
-                html,
-                count=1,
-            )
-
-
-        # ----------------------------------------------------
-        # MOSTRA MAPPA
-        # ----------------------------------------------------
-
         components.html(
             html,
             height=height,
@@ -1744,10 +1884,6 @@ def render_kepler(
 
             pass
 
-
-    # --------------------------------------------------------
-    # LIBERA MEMORIA
-    # --------------------------------------------------------
 
     del geojson
     del mappa
