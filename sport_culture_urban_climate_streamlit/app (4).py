@@ -1639,13 +1639,26 @@ def render_kepler(
             },
 
             "mapStyle": {
-                "styleType":
-                    "dark"
-                    if dark_mode
-                    else "light"
-            },
-        },
-    }
+    "styleType":
+        "dark"
+        if dark_mode
+        else "light",
+
+    "mapboxApiAccessToken":
+        st.secrets.get(
+            "MAPBOX_TOKEN",
+            ""
+        ),
+
+    "visibleLayerGroups": {
+        "label": True,
+        "road": True,
+        "border": True,
+        "building": True,
+        "water": True,
+        "land": True,
+    },
+},
 
 
     # --------------------------------------------------------
