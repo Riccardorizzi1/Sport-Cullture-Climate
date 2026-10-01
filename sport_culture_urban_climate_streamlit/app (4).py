@@ -1746,6 +1746,84 @@ def render_kepler(
 
     gc.collect()
 
+def render_legenda_mappa(
+    gdf,
+    metric_label,
+):
+
+    if (
+        gdf is None
+        or gdf.empty
+        or "valore_mappa" not in gdf.columns
+    ):
+        return
+
+    valori = pd.to_numeric(
+        gdf["valore_mappa"],
+        errors="coerce",
+    ).dropna()
+
+    if valori.empty:
+        return
+
+    minimo = float(valori.min())
+    mediana = float(valori.median())
+    massimo = float(valori.max())
+
+    def formato(x):
+        if abs(x) >= 1000:
+            return (
+                f"{x:,.1f}"
+                .replace(",", "X")
+                .replace(".", ",")
+                .replace("X", ".")
+            )
+
+        return (
+            f"{x:.2f}"
+            .replace(".", ",")
+        )
+
+    st.markdown(
+        f"**Legenda — {metric_label}**"
+    )
+
+    st.markdown(
+        """
+        <div style="
+            height:14px;
+            border-radius:7px;
+            margin-top:6px;
+            margin-bottom:4px;
+            background:
+                linear-gradient(
+                    90deg,
+                    rgb(194,240,246) 0%,
+                    rgb(8,74,104) 100%
+                );
+        ">
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    c1, c2, c3 = st.columns(3)
+
+    with c1:
+        st.caption(
+            f"Minimo: {formato(minimo)}"
+        )
+
+    with c2:
+        st.caption(
+            f"Mediana: {formato(mediana)}"
+        )
+
+    with c3:
+        st.caption(
+            f"Massimo: {formato(massimo)}"
+        )
+
 # ============================================================
 # METRICHE MAPPA
 # ============================================================
