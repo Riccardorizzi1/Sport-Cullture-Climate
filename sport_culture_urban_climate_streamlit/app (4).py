@@ -413,73 +413,7 @@ st.sidebar.caption(
 )
 
 
-# ============================================================
-# SBL CONSULTANCY
-# ============================================================
 
-st.sidebar.markdown(
-    """
-    <a
-        href="https://www.sblconsultancy.it/"
-        target="_blank"
-        style="
-            display:flex;
-            align-items:center;
-            gap:12px;
-            text-decoration:none;
-            margin-top:18px;
-            margin-bottom:18px;
-            padding:12px;
-            border-radius:12px;
-            background:rgba(255,255,255,0.10);
-            border:1px solid rgba(255,255,255,0.16);
-        "
-    >
-
-        <img
-            src="https://www.sblconsultancy.it/favicon.ico"
-            alt="SBL"
-            style="
-                width:42px;
-                height:42px;
-                object-fit:contain;
-                background:white;
-                border-radius:8px;
-                padding:4px;
-            "
-        >
-
-        <div
-            style="
-                line-height:1.15;
-                color:white;
-            "
-        >
-            <div
-                style="
-                    font-weight:700;
-                    font-size:14px;
-                    color:white;
-                "
-            >
-                SBL Consultancy
-            </div>
-
-            <div
-                style="
-                    font-size:10px;
-                    margin-top:4px;
-                    color:rgba(255,255,255,0.72);
-                "
-            >
-                Sport Business Lab
-            </div>
-        </div>
-
-    </a>
-    """,
-    unsafe_allow_html=True,
-)
 
 st.sidebar.markdown("---")
 
@@ -745,61 +679,72 @@ section[data-testid="stSidebar"] * {{
 
 
 # ============================================================
-# FIX CONTROLLI SIDEBAR
+# CONTROLLI SIDEBAR
 # ============================================================
 
 st.markdown(
     """
-    <style>
+<style>
 
-    /* Selectbox nella sidebar */
-    section[data-testid="stSidebar"]
-    div[data-baseweb="select"] > div {
-        background-color: #FFFFFF !important;
-        border-color: rgba(8,43,70,0.18) !important;
-    }
+/* ---------------------------------------------------------
+   SELECTBOX SIDEBAR
+   --------------------------------------------------------- */
 
-    section[data-testid="stSidebar"]
-    div[data-baseweb="select"] span,
+section[data-testid="stSidebar"]
+div[data-baseweb="select"] > div {
+    background-color: #FFFFFF !important;
+    border-color: rgba(8,43,70,0.25) !important;
+}
 
-    section[data-testid="stSidebar"]
-    div[data-baseweb="select"] input,
 
-    section[data-testid="stSidebar"]
-    div[data-baseweb="select"] div {
-        color: #082B46 !important;
-        -webkit-text-fill-color: #082B46 !important;
-    }
+/* Testo selezionato */
+section[data-testid="stSidebar"]
+div[data-baseweb="select"] span,
 
-    section[data-testid="stSidebar"]
-    div[data-baseweb="select"] svg {
-        fill: #082B46 !important;
-        color: #082B46 !important;
-    }
+section[data-testid="stSidebar"]
+div[data-baseweb="select"] input {
 
-    /* Menu aperto del selectbox */
-    div[data-baseweb="popover"] {
-        color: #082B46 !important;
-    }
+    color: #082B46 !important;
+    -webkit-text-fill-color: #082B46 !important;
+}
 
-    div[data-baseweb="popover"]
-    [role="option"] {
-        background-color: #FFFFFF !important;
-        color: #082B46 !important;
-    }
 
-    div[data-baseweb="popover"]
-    [role="option"] * {
-        color: #082B46 !important;
-        -webkit-text-fill-color: #082B46 !important;
-    }
+/* Freccia */
+section[data-testid="stSidebar"]
+div[data-baseweb="select"] svg {
 
-    div[data-baseweb="popover"]
-    [role="option"]:hover {
-        background-color: #DDF4F7 !important;
-    }
+    color: #082B46 !important;
+    fill: #082B46 !important;
+}
 
-    </style>
+
+/* ---------------------------------------------------------
+   MENU APERTO
+   --------------------------------------------------------- */
+
+div[data-baseweb="popover"]
+[role="option"] {
+
+    background-color: #FFFFFF !important;
+    color: #082B46 !important;
+}
+
+
+div[data-baseweb="popover"]
+[role="option"] * {
+
+    color: #082B46 !important;
+    -webkit-text-fill-color: #082B46 !important;
+}
+
+
+div[data-baseweb="popover"]
+[role="option"]:hover {
+
+    background-color: #DDF4F7 !important;
+}
+
+</style>
     """,
     unsafe_allow_html=True,
 )
@@ -910,6 +855,47 @@ if (
             ["Tutti"] + com_options,
         )
     )
+
+
+# ============================================================
+# SBL SIDEBAR NATIVO
+# ============================================================
+
+st.sidebar.markdown("---")
+
+st.sidebar.subheader(
+    "SBL Consultancy"
+)
+
+
+SBL_LOGO_LOCAL = (
+    ROOT
+    / "sbl_logo.png"
+)
+
+
+if SBL_LOGO_LOCAL.exists():
+
+    st.sidebar.image(
+        str(SBL_LOGO_LOCAL),
+        width=120,
+    )
+
+else:
+
+    # Fallback automatico:
+    # icona ufficiale del sito SBL
+    st.sidebar.image(
+        "https://www.sblconsultancy.it/favicon.ico",
+        width=70,
+    )
+
+
+st.sidebar.link_button(
+    "Visita SBL Consultancy",
+    "https://www.sblconsultancy.it/",
+    width="stretch",
+)
 
 
 # ============================================================
