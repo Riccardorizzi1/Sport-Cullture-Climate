@@ -2121,6 +2121,25 @@ st.write(
 
 
 # ============================================================
+# KPI DASHBOARD - FONT
+# ============================================================
+
+st.markdown(
+    """
+<style>
+
+[data-testid="stMetricValue"],
+[data-testid="stMetricValue"] * {
+    font-weight: 700 !important;
+}
+
+</style>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+# ============================================================
 # PANORAMA
 # ============================================================
 
@@ -2129,6 +2148,7 @@ def page_panorama():
     st.header(
         "Panorama nazionale"
     )
+
 
 
     df, livello = dataset_corrente()
@@ -2142,28 +2162,78 @@ def page_panorama():
     )
 
 
-    sport = (
-        df[
-            "n_sport"
-        ]
-        .sum()
-    )
+    # --------------------------------------------------------
+    # OFFERTA
+    #
+    # Italia:
+    # Master Registry completo.
+    #
+    # Regioni / Province / Comuni:
+    # strutture territorialmente attribuite.
+    # --------------------------------------------------------
+
+    if regione_sel == "Italia":
+
+        registry_dataset = pds.dataset(
+            str(
+                FILES["registry"]
+            ),
+            format="parquet",
+        )
 
 
-    cultura = (
-        df[
-            "n_cultura"
-        ]
-        .sum()
-    )
+        strutture = (
+            registry_dataset
+            .count_rows()
+        )
 
 
-    strutture = (
-        df[
-            "n_strutture"
-        ]
-        .sum()
-    )
+        sport = (
+            registry_dataset
+            .count_rows(
+                filter=(
+                    pds.field("dominio")
+                    == "SPORT"
+                )
+            )
+        )
+
+
+        cultura = (
+            registry_dataset
+            .count_rows(
+                filter=(
+                    pds.field("dominio")
+                    == "CULTURA"
+                )
+            )
+        )
+
+
+    else:
+
+        strutture = (
+            df[
+                "n_strutture"
+            ]
+            .sum()
+        )
+
+
+        sport = (
+            df[
+                "n_sport"
+            ]
+            .sum()
+        )
+
+
+        cultura = (
+            df[
+                "n_cultura"
+            ]
+            .sum()
+        )
 
 
     c1, c2, c3, c4 = (
@@ -2204,6 +2274,16 @@ def page_panorama():
             cultura
         ),
     )
+
+
+    if regione_sel == "Italia":
+
+        st.caption(
+            "Il totale nazionale utilizza il Master Registry completo. "
+            "753 strutture non dispongono di attribuzione "
+            "regionale/provinciale e sono quindi incluse nel totale Italia "
+            "ma escluse dalle aggregazioni territoriali."
+        )
 
 
     st.subheader(
@@ -2867,8 +2947,8 @@ def page_contesto():
 
     st.caption(
         "Anteprima delle prime 5.000 celle. "
-        "Il dataset originale completo rimane "
-        "disponibile nel progetto."
+        "Il dataset completo rimane invariato "
+        "negli output del progetto."
     )
 
 
@@ -2878,6 +2958,43 @@ def page_contesto():
 
     st.subheader(
         "Ambiente"
+    )
+
+
+    a1, a2, a3 = st.columns(
+        3
+    )
+
+
+    a1.metric(
+        "Celle totali",
+        "1.228.032",
+    )
+
+
+    a2.metric(
+        "Celle senza alcun dato ambientale",
+        "423",
+    )
+
+
+    a3.metric(
+        "Quota completamente priva di dati",
+        "0,03%",
+    )
+
+
+    st.info(
+        "I valori mancanti non indicano necessariamente "
+        "assenza di informazione ambientale. "
+        "Solo 423 celle su 1.228.032 sono completamente "
+        "prive di variabili ambientali. "
+        "Per SVF, ombreggiamento, ore di sole diretto e "
+        "proxy di esposizione solare il NoData è più esteso "
+        "perché queste elaborazioni morfologiche sono state "
+        "applicate nell'area analitica prevista attorno "
+        "alle strutture; fuori da tale area il valore "
+        "è stato mantenuto come NoData."
     )
 
 
@@ -2915,8 +3032,8 @@ def page_contesto():
 
     st.caption(
         "Anteprima delle prime 5.000 celle. "
-        "Nessuna variabile viene eliminata "
-        "dal dataset originale."
+        "I NoData sono mantenuti come tali: "
+        "non vengono sostituiti con zero e non vengono imputati."
     )
 
 
@@ -2924,6 +3041,7 @@ def page_contesto():
     del ambiente
 
     gc.collect()
+
 
 # ============================================================
 # CONFRONTI
@@ -2936,21 +3054,84 @@ def page_confronti():
     )
 
 
-    ranking_regionale = (
-        read_parquet(
-            FILES[
-                "ranking_regionale"
-            ]
+    ranking_regionale = read_parquet(
+        FILES[
+            "ranking_regionale"
+        ]
+    )
+
+
+    ranking_provinciale = read_parquet(
+        FILES[
+            "ranking_provinciale"
+        ]
+    )
+
+
+    def prepara_ranking_display(
+        df
+    ):
+
+        out = df.copy()
+
+
+        for col in [
+            "popolazione_totale",
+            "popolazione_con_indice",
+        ]:
+
+            if col in out.columns:
+
+                out[col] = (
+                    pd.to_numeric(
+                        out[col],
+                        errors="coerce",
+                    )
+                    .round(0)
+                    .astype("Int64")
+                )
+
+
+        for col in [
+            "copertura_popolazione_pct",
+            "valore_normalizzato_regionale",
+            "valore_normalizzato_provinciale",
+        ]:
+
+            if col in out.columns:
+
+                out[col] = (
+                    pd.to_numeric(
+                        out[col],
+                        errors="coerce",
+                    )
+                    .round(2)
+                )
+
+
+        return out
+
+
+    ranking_regionale_display = (
+        prepara_ranking_display(
+            ranking_regionale
         )
     )
 
 
-    ranking_provinciale = (
-        read_parquet(
-            FILES[
-                "ranking_provinciale"
-            ]
+    ranking_provinciale_display = (
+        prepara_ranking_display(
+            ranking_provinciale
         )
+    )
+
+
+    st.caption(
+        "Le variabili di popolazione sono visualizzate "
+        "arrotondate alla persona più vicina. "
+        "L'arrotondamento riguarda esclusivamente "
+        "la visualizzazione della dashboard e non modifica "
+        "gli output originali."
     )
 
 
@@ -2965,7 +3146,7 @@ def page_confronti():
     with tab_reg:
 
         st.dataframe(
-            ranking_regionale,
+            ranking_regionale_display,
             width="stretch",
             hide_index=True,
         )
@@ -2974,10 +3155,18 @@ def page_confronti():
     with tab_prov:
 
         st.dataframe(
-            ranking_provinciale,
+            ranking_provinciale_display,
             width="stretch",
             hide_index=True,
         )
+
+
+    del ranking_regionale
+    del ranking_provinciale
+    del ranking_regionale_display
+    del ranking_provinciale_display
+
+    gc.collect()
 
 
 # ============================================================
@@ -2990,6 +3179,284 @@ def page_metodologia():
         "Qualità dati e metodologia"
     )
 
+
+    st.markdown(
+        """
+### Obiettivo
+
+La dashboard supporta l'analisi della fruibilità
+dell'offerta sportiva e culturale italiana mettendo
+in relazione strutture, popolazione, territorio,
+accessibilità, domanda/offerta e contesto urbano.
+
+Il workflow generale seguito dal progetto è:
+
+**dati → unità spaziali → analisi → indicatori →
+normalizzazione → score → aggregazione →
+visualizzazione.**
+        """
+    )
+
+
+    # ========================================================
+    # MASTER REGISTRY
+    # ========================================================
+
+    with st.expander(
+        "1. Censimento nazionale dell'offerta",
+        expanded=True,
+    ):
+
+        st.markdown(
+            """
+Il censimento integra fonti ufficiali, open data
+e OpenStreetMap.
+
+Il workflow applicato al registro delle strutture è:
+
+**raccolta → pulizia → standardizzazione → matching →
+deduplicazione → classificazione → validazione →
+ID univoco.**
+
+Il Master Registry attuale contiene **324.553
+strutture univoche**:
+
+- **248.954 SPORT**
+- **75.599 CULTURA**
+
+Le strutture sono classificate utilizzando la
+tassonomia SPORT/CULTURA approvata dal progetto.
+
+**753 strutture** non dispongono di attribuzione
+regionale/provinciale. Sono mantenute nel Master
+Registry nazionale ma non possono essere incluse
+nelle aggregazioni amministrative.
+            """
+        )
+
+
+    # ========================================================
+    # POPOLAZIONE E TERRITORIO
+    # ========================================================
+
+    with st.expander(
+        "2. Popolazione e unità territoriali",
+        expanded=False,
+    ):
+
+        st.markdown(
+            """
+La domanda territoriale è rappresentata attraverso
+la popolazione residente con riferimento al 2023.
+
+La griglia di **500 m** costituisce l'unità analitica
+principale utilizzata negli output finali della
+dashboard.
+
+I risultati sono successivamente aggregabili secondo:
+
+**Cella → Comune → Provincia/Città Metropolitana →
+Regione → Italia.**
+
+I confini amministrativi utilizzati nella dashboard
+sono quelli presenti nel progetto con riferimento
+al **01/01/2023**.
+            """
+        )
+
+
+    # ========================================================
+    # OFFERTA / DOMANDA / ACCESSIBILITÀ
+    # ========================================================
+
+    with st.expander(
+        "3. Offerta, domanda e accessibilità",
+        expanded=False,
+    ):
+
+        st.markdown(
+            """
+Prima della costruzione degli score sono stati
+mantenuti indicatori elementari interpretabili,
+tra cui:
+
+- numero e densità delle strutture;
+- strutture per popolazione;
+- distanze;
+- copertura;
+- disponibilità locale;
+- concentrazione dell'offerta;
+- prossimità;
+- rapporto domanda/offerta.
+
+La dashboard utilizza inoltre gli output di
+accessibilità già prodotti nel progetto, compresi
+i **buffer di 500 m e 1 km** e lo
+**score di accessibilità**.
+
+Gli indicatori elementari restano disponibili anche
+quando vengono successivamente utilizzati nella
+costruzione degli score.
+            """
+        )
+
+
+    # ========================================================
+    # CONTESTO URBANO
+    # ========================================================
+
+    with st.expander(
+        "4. Contesto urbano",
+        expanded=False,
+    ):
+
+        st.markdown(
+            """
+Il modulo di contesto urbano affianca agli indicatori
+di offerta e popolazione informazioni territoriali
+quali:
+
+- densità abitativa;
+- impermeabilizzazione e superficie costruita;
+- copertura arborea;
+- uso del suolo;
+- servizi complementari;
+- mix funzionale;
+- centralità urbana;
+- intensità funzionale;
+- continuità del tessuto urbano.
+
+Le variabili mantengono il proprio valore elementare
+anche quando contribuiscono a indicatori o score
+successivi.
+            """
+        )
+
+
+    # ========================================================
+    # AMBIENTE
+    # ========================================================
+
+    with st.expander(
+        "5. Ambiente e comfort",
+        expanded=False,
+    ):
+
+        st.markdown(
+            """
+Il modulo ambientale include gli output prodotti per:
+
+- Sky View Factor;
+- ombreggiamento;
+- ore di sole diretto;
+- proxy di esposizione solare;
+- radiazione solare GHI/BHI/DHI;
+- temperatura;
+- umidità relativa;
+- UTCI;
+- comfort termico.
+
+Per le elaborazioni morfologiche e solari di dettaglio
+il **NoData è intenzionale fuori dall'area analitica
+prevista** e non viene interpretato come valore zero.
+
+L'audit del dataset ambientale finale mostra:
+
+- **1.228.032 celle totali**;
+- **423 celle completamente prive di dati ambientali**;
+- quota completamente priva di dati: **0,03%**.
+            """
+        )
+
+
+    # ========================================================
+    # NORMALIZZAZIONE E SCORE
+    # ========================================================
+
+    with st.expander(
+        "6. Normalizzazione, score e ranking",
+        expanded=False,
+    ):
+
+        st.markdown(
+            """
+Gli indicatori con unità differenti non vengono
+combinati direttamente.
+
+Gli output del progetto distinguono quindi tra:
+
+1. indicatori elementari;
+2. variabili normalizzate;
+3. score tematici;
+4. aggregazioni territoriali e ranking.
+
+Formule, componenti, regole sui missing e pesi
+utilizzati negli output già prodotti sono conservati
+nei relativi file di metadata e nel registro tecnico.
+
+La dashboard non ricalcola né modifica tali valori:
+li legge dagli output validati del progetto.
+            """
+        )
+
+
+    # ========================================================
+    # QUALITÀ
+    # ========================================================
+
+    with st.expander(
+        "7. Qualità e copertura territoriale",
+        expanded=False,
+    ):
+
+        q1, q2, q3 = st.columns(
+            3
+        )
+
+
+        q1.metric(
+            "Strutture senza Regione/Provincia",
+            "753",
+        )
+
+
+        q2.metric(
+            "Celle senza Regione/Provincia",
+            "10.506",
+        )
+
+
+        q3.metric(
+            "Celle con dati ambientali totalmente assenti",
+            "423",
+        )
+
+
+        st.markdown(
+            """
+L'audit territoriale della griglia 500 m ha inoltre
+evidenziato:
+
+- **10.506 celle** senza Regione e Provincia;
+- tutte queste 10.506 celle hanno
+  **densità abitativa pari a zero**;
+- **95 celle** presentano densità positiva ma non
+  dispongono dell'attribuzione comunale completa.
+
+Queste 95 celle vengono mantenute nei dati originali
+e segnalate come elemento da verificare, senza
+attribuzioni o imputazioni artificiali.
+
+La scarsità o l'assenza di un valore nel dataset non
+viene quindi automaticamente interpretata come
+assenza reale del fenomeno.
+            """
+        )
+
+
+    # ========================================================
+    # REGISTRO TECNICO
+    # ========================================================
 
     registro = read_parquet(
         FILES[
@@ -3010,6 +3477,10 @@ def page_metodologia():
     )
 
 
+    # ========================================================
+    # TASSONOMIA
+    # ========================================================
+
     tassonomia = read_json(
         FILES[
             "tassonomia"
@@ -3029,7 +3500,7 @@ def page_metodologia():
 
         with st.expander(
             dominio_tax,
-            expanded=True,
+            expanded=False,
         ):
 
             for (
@@ -3042,6 +3513,11 @@ def page_metodologia():
                 st.write(
                     f"**{label}** — `{codice}`"
                 )
+
+
+    del registro
+
+    gc.collect()
 
 
 # ============================================================
