@@ -1637,6 +1637,7 @@ def render_kepler(
                 "pitch": 0,
                 "bearing": 0,
             },
+    },
 
             "mapStyle": {
     "styleType":
