@@ -1036,7 +1036,8 @@ def estrai_limiti(
 
 
 @st.cache_data(
-    show_spinner=False
+    show_spinner=False,
+    max_entries=1,
 )
 def carica_confini(
     livello,
@@ -1493,7 +1494,7 @@ def prepara_mappa_admin(
 
 @st.cache_data(
     show_spinner=False,
-    max_entries=3,
+    max_entries=1,
 )
 def carica_celle_comune(
     regione,
@@ -1512,81 +1513,168 @@ def carica_celle_comune(
     ]
 
 
-    try:
-
-        gdf = gpd.read_parquet(
+    dataset = pds.dataset(
+        str(
             FILES[
                 "contesto_500m"
-            ],
-            columns=colonne,
-            filters=[
-                (
-                    "regione",
-                    "==",
-                    regione,
-                ),
-                (
-                    "provincia",
-                    "==",
-                    provincia,
-                ),
-                (
-                    "comune",
-                    "==",
-                    comune,
-                ),
-            ],
-        )
-
-
-    except Exception:
-
-        gdf = gpd.read_parquet(
-            FILES[
-                "contesto_500m"
-            ],
-            columns=colonne,
-        )
-
-
-        gdf = gdf[
-            (
-                gdf["regione"]
-                .astype(str)
-                == regione
-            )
-            &
-            (
-                gdf["provincia"]
-                .astype(str)
-                == provincia
-            )
-            &
-            (
-                gdf["comune"]
-                .astype(str)
-                == comune
-            )
-        ].copy()
-
-
-    if gdf.crs is None:
-
-        gdf = gdf.set_crs(
-            3035
-        )
-
-
-    gdf = gdf.to_crs(
-        4326
+            ]
+        ),
+        format="parquet",
     )
 
 
+    disponibili = set(
+        dataset.schema.names
+    )
+
+
+    mancanti = [
+        c
+        for c in colonne
+        if c not in disponibili
+    ]
+
+
+    if mancanti:
+
+        raise RuntimeError(
+            "Colonne mancanti nel dataset 500 m: "
+            + ", ".join(mancanti)
+        )
+
+
+    filtro = (
+        (
+            pds.field("regione")
+            == regione
+        )
+        &
+        (
+            pds.field("provincia")
+            == provincia
+        )
+        &
+        (
+            pds.field("comune")
+            == comune
+        )
+    )
+
+
+    table = dataset.to_table(
+        columns=colonne,
+        filter=filtro,
+    )
+
+
+    if table.num_rows == 0:
+
+        return gpd.GeoDataFrame(
+            columns=[
+                "area",
+                "valore_mappa",
+                "fillColor",
+                "lineColor",
+                "lineWidth",
+                "geometry",
+            ],
+            geometry="geometry",
+            crs="EPSG:4326",
+        )
+
+
+    df = table.to_pandas()
+
+
+    # --------------------------------------------------------
+    # GEOMETRIA
+    # --------------------------------------------------------
+
+    geom_raw = df[
+        "geometry"
+    ]
+
+
+    valid_geom = (
+        geom_raw
+        .dropna()
+    )
+
+
+    if valid_geom.empty:
+
+        return gpd.GeoDataFrame(
+            columns=[
+                "area",
+                "valore_mappa",
+                "fillColor",
+                "lineColor",
+                "lineWidth",
+                "geometry",
+            ],
+            geometry="geometry",
+            crs="EPSG:4326",
+        )
+
+
+    sample = valid_geom.iloc[0]
+
+
+    if isinstance(
+        sample,
+        (
+            bytes,
+            bytearray,
+            memoryview,
+        ),
+    ):
+
+        geometry = (
+            gpd.GeoSeries.from_wkb(
+                geom_raw,
+                crs="EPSG:3035",
+            )
+        )
+
+    else:
+
+        geometry = gpd.GeoSeries(
+            geom_raw,
+            crs="EPSG:3035",
+        )
+
+
+    df = df.drop(
+        columns=[
+            "geometry"
+        ]
+    )
+
+
+    gdf = gpd.GeoDataFrame(
+        df,
+        geometry=geometry,
+        crs="EPSG:3035",
+    )
+
+
+    gdf = gdf.to_crs(
+        "EPSG:4326"
+    )
+
+
+    # --------------------------------------------------------
+    # CAMPI MAPPA
+    # --------------------------------------------------------
+
     gdf[
         "area"
-    ] = gdf[
-        "cell_id"
-    ].astype(str)
+    ] = (
+        gdf[
+            "cell_id"
+        ]
+        .astype(str)
+    )
 
 
     gdf[
@@ -2287,7 +2375,191 @@ def page_panorama():
 # OFFERTA
 # ============================================================
 
-def carica_registry():
+def page_offerta():
+
+    st.header(
+        "Offerta sportiva e culturale"
+    )
+
+
+    dataset = pds.dataset(
+        str(
+            FILES[
+                "registry"
+            ]
+        ),
+        format="parquet",
+    )
+
+
+    filtro = None
+
+
+    def aggiungi_filtro(
+        corrente,
+        nuovo,
+    ):
+
+        if corrente is None:
+            return nuovo
+
+        return corrente & nuovo
+
+
+    # --------------------------------------------------------
+    # DOMINIO
+    # --------------------------------------------------------
+
+    if dominio == "Sport":
+
+        filtro = aggiungi_filtro(
+            filtro,
+            (
+                pds.field("dominio")
+                == "SPORT"
+            ),
+        )
+
+
+    elif dominio == "Cultura":
+
+        filtro = aggiungi_filtro(
+            filtro,
+            (
+                pds.field("dominio")
+                == "CULTURA"
+            ),
+        )
+
+
+    # --------------------------------------------------------
+    # TERRITORIO
+    # --------------------------------------------------------
+
+    if regione_sel != "Italia":
+
+        filtro = aggiungi_filtro(
+            filtro,
+            (
+                pds.field("regione")
+                == regione_sel
+            ),
+        )
+
+
+    if provincia_sel != "Tutte":
+
+        filtro = aggiungi_filtro(
+            filtro,
+            (
+                pds.field("provincia")
+                == provincia_sel
+            ),
+        )
+
+
+    if comune_sel != "Tutti":
+
+        filtro = aggiungi_filtro(
+            filtro,
+            (
+                pds.field("comune")
+                == comune_sel
+            ),
+        )
+
+
+    # --------------------------------------------------------
+    # NUMERO STRUTTURE
+    # --------------------------------------------------------
+
+    n_strutture = dataset.count_rows(
+        filter=filtro
+    )
+
+
+    # --------------------------------------------------------
+    # CATEGORIE E FONTI
+    #
+    # Scansione a batch:
+    # non crea un DataFrame nazionale completo.
+    # --------------------------------------------------------
+
+    categorie = set()
+    fonti = set()
+
+
+    scanner = dataset.scanner(
+        columns=[
+            "categoria",
+            "fonti",
+        ],
+        filter=filtro,
+        batch_size=32768,
+    )
+
+
+    for batch in scanner.to_batches():
+
+        dati = (
+            batch.to_pydict()
+        )
+
+
+        categorie.update(
+            x
+            for x in dati[
+                "categoria"
+            ]
+            if x is not None
+        )
+
+
+        fonti.update(
+            x
+            for x in dati[
+                "fonti"
+            ]
+            if x is not None
+        )
+
+
+    # --------------------------------------------------------
+    # KPI
+    # --------------------------------------------------------
+
+    c1, c2, c3 = st.columns(
+        3
+    )
+
+
+    c1.metric(
+        "Strutture",
+        fmt_int(
+            n_strutture
+        ),
+    )
+
+
+    c2.metric(
+        "Categorie presenti",
+        fmt_int(
+            len(categorie)
+        ),
+    )
+
+
+    c3.metric(
+        "Fonti presenti",
+        fmt_int(
+            len(fonti)
+        ),
+    )
+
+
+    # --------------------------------------------------------
+    # SOLO PRIME 5.000 RIGHE
+    # --------------------------------------------------------
 
     columns = [
         "master_id",
@@ -2303,106 +2575,16 @@ def carica_registry():
     ]
 
 
-    return pd.read_parquet(
-        FILES["registry"],
+    preview_table = dataset.head(
+        5000,
         columns=columns,
+        filter=filtro,
     )
 
 
-def page_offerta():
-
-    st.header(
-        "Offerta sportiva e culturale"
-    )
-
-
-    df = (
-        carica_registry()
-        .copy()
-    )
-
-
-    if dominio == "Sport":
-
-        df = df[
-            df["dominio"]
-            .astype(str)
-            .str.upper()
-            == "SPORT"
-        ]
-
-
-    elif dominio == "Cultura":
-
-        df = df[
-            df["dominio"]
-            .astype(str)
-            .str.upper()
-            == "CULTURA"
-        ]
-
-
-    if regione_sel != "Italia":
-
-        df = df[
-            df["regione"]
-            .astype(str)
-            == regione_sel
-        ]
-
-
-    if provincia_sel != "Tutte":
-
-        df = df[
-            df["provincia"]
-            .astype(str)
-            == provincia_sel
-        ]
-
-
-    if comune_sel != "Tutti":
-
-        df = df[
-            df["comune"]
-            .astype(str)
-            == comune_sel
-        ]
-
-
-    c1, c2, c3 = (
-        st.columns(
-            3
-        )
-    )
-
-
-    c1.metric(
-        "Strutture",
-        fmt_int(
-            len(df)
-        ),
-    )
-
-
-    c2.metric(
-        "Categorie presenti",
-        fmt_int(
-            df[
-                "categoria"
-            ]
-            .nunique()
-        ),
-    )
-
-
-    c3.metric(
-        "Fonti presenti",
-        fmt_int(
-            df[
-                "fonti"
-            ]
-            .nunique()
-        ),
+    preview = (
+        preview_table
+        .to_pandas()
     )
 
 
@@ -2412,20 +2594,28 @@ def page_offerta():
 
 
     st.dataframe(
-        df.head(
-            5000
-        ),
+        preview,
         width="stretch",
         hide_index=True,
     )
 
 
-    if len(df) > 5000:
+    if n_strutture > 5000:
 
         st.caption(
-            "La tabella mostra le prime 5.000 righe "
-            f"su {fmt_int(len(df))} strutture."
+            "La tabella mostra le prime "
+            "5.000 righe su "
+            f"{fmt_int(n_strutture)} strutture."
         )
+
+
+    del preview
+    del preview_table
+    del scanner
+    del categorie
+    del fonti
+
+    gc.collect()
 
 
 # ============================================================
